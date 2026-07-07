@@ -78,7 +78,7 @@ public class TestTempTables extends TempTableTestHarness {
         execute("insert into x (e2, e1) select e2, e1 from pm1.g1", new List[] {Arrays.asList(6)}); //$NON-NLS-1$
         execute("update x set e1 = e2 where e2 > 1", new List[] {Arrays.asList(2)}); //$NON-NLS-1$
 
-        Mockito.verify(txn).registerSynchronization((Synchronization) Mockito.anyObject());
+        Mockito.verify(txn).registerSynchronization((Synchronization) Mockito.any());
         synch.afterCompletion(Status.STATUS_ROLLEDBACK);
 
         try {
@@ -182,8 +182,8 @@ public class TestTempTables extends TempTableTestHarness {
                 synch = (Synchronization)invocation.getArguments()[0];
                 return null;
             }
-        }).when(txn).registerSynchronization((Synchronization)Mockito.anyObject());
-        Mockito.stub(txn.toString()).toReturn("txn");
+        }).when(txn).registerSynchronization((Synchronization)Mockito.any());
+        Mockito.when(txn.toString()).thenReturn("txn");
         tc = new TransactionContext();
         tc.setTransaction(txn);
         tc.setIsolationLevel(isolation);

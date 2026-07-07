@@ -32,7 +32,7 @@
         <basepom.test.memory>1024m</basepom.test.memory>
 
         <!-- the tests under java 11 fail with the default version -->
-        <dep.plugin.jacoco.version>0.8.3</dep.plugin.jacoco.version>
+        <dep.plugin.jacoco.version>0.8.11</dep.plugin.jacoco.version>
         
         <!-- from syndesis.io -->
         <!-- Don't fork based on cores, doesn't work nicely in the cloud -->
@@ -41,14 +41,14 @@
 	    <basepom.failsafe.reuse-vm>true</basepom.failsafe.reuse-vm>
 	    <!-- takes a really long time -->
         <basepom.check.skip-dependency-versions-check>true</basepom.check.skip-dependency-versions-check>
-        <dep.plugin.jacoco.version>0.8.3</dep.plugin.jacoco.version>
+        <dep.plugin.jacoco.version>0.8.11</dep.plugin.jacoco.version>
         <!-- end from syndesis.io -->
         
         <!-- since we auto-release, we want to push the changes -->
         <basepom.release.push-changes>true</basepom.release.push-changes>
         
-        <project.build.systemJdk>9</project.build.systemJdk>
-        <project.build.targetJdk>8</project.build.targetJdk>
+        <project.build.systemJdk>17</project.build.systemJdk>
+        <project.build.targetJdk>17</project.build.targetJdk>
 
         <derby.version>10.2.1.6</derby.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
@@ -110,9 +110,10 @@
         <version.org.eclipse.persistence.javax>2.1.0</version.org.eclipse.persistence.javax>
         <version.org.hibernate.core>5.4.12.Final</version.org.hibernate.core>
         <version.org.hibernate.javax.persistence.hibernate-jpa-2.1-api>1.0.2.Final</version.org.hibernate.javax.persistence.hibernate-jpa-2.1-api>
-        <version.org.mockito>1.10.19</version.org.mockito>
+        <version.org.mockito>4.11.0</version.org.mockito>
+        <version.net.bytebuddy>1.12.19</version.net.bytebuddy>
         <version.org.jboss.oreva>1.0.0</version.org.jboss.oreva>
-        <version.org.mockito>1.10.19</version.org.mockito>
+        <version.org.mockito>4.11.0</version.org.mockito>
         <version.org.mongodb.mongo-java-driver>3.9.1</version.org.mongodb.mongo-java-driver>
         <version.org.reflections>0.9.11</version.org.reflections>
         
@@ -205,25 +206,6 @@
 	</developers>
 	<profiles>
         <profile>
-            <id>wildfly</id>
-            <modules>
-                <module>wildfly</module>
-            </modules>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.sonatype.plugins</groupId>
-                            <artifactId>nexus-staging-maven-plugin</artifactId>
-                            <!-- until the builds are separate, needs to match wildfly -->
-                            <version>1.6.8</version>
-                        </plugin>
-                    </plugins>
-                 </pluginManagement>
-             </build>
-        </profile>
-        
-        <profile>
         <id>default</id>
         <activation>
             <activeByDefault>true</activeByDefault>
@@ -240,7 +222,6 @@
 		<id>release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 	</profile>
 
@@ -248,7 +229,6 @@
 		<id>final-release</id>
 		<modules>
 			<module>build</module>
-			<module>wildfly</module>
 		</modules>
 		<properties>
             <basepom.check.skip-javadoc>false</basepom.check.skip-javadoc>
@@ -313,7 +293,7 @@
 			<!-- Fixes how test resources of a project can be used in projects dependent on it -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.6.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -1400,6 +1380,19 @@
                 <version>${version.org.mockito}</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Pin byte-buddy to the version required by Mockito 4.x; hibernate-core is
+                 backward-compatible with it. Resolves a transitive version conflict. -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${version.net.bytebuddy}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${version.net.bytebuddy}</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.osgeo</groupId>
                 <artifactId>proj4j</artifactId>
@@ -2086,5 +2079,6 @@
 		<module>olingo</module>
         <module>connectors</module>
 		<module>saxon-xom</module>
+		<module>embedded</module>
 	</modules>
 </project>

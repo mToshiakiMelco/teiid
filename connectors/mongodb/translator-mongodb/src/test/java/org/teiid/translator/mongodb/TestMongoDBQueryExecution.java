@@ -96,17 +96,17 @@ public class TestMongoDBQueryExecution {
     }
     private DBCollection helpExecute(Command cmd, String[] expectedCollection) throws TranslatorException {
         ExecutionContext context = Mockito.mock(ExecutionContext.class);
-        Mockito.stub(context.getBatchSize()).toReturn(256);
+        Mockito.when(context.getBatchSize()).thenReturn(256);
         MongoDBConnection connection = Mockito.mock(MongoDBConnection.class);
         DB db = Mockito.mock(DB.class);
 
         DBCollection dbCollection = Mockito.mock(DBCollection.class);
         for(String collection:expectedCollection) {
-            Mockito.stub(db.getCollection(collection)).toReturn(dbCollection);
+            Mockito.when(db.getCollection(collection)).thenReturn(dbCollection);
         }
 
-        Mockito.stub(db.collectionExists(Mockito.anyString())).toReturn(true);
-        Mockito.stub(connection.getDatabase()).toReturn(db);
+        Mockito.when(db.collectionExists(Mockito.anyString())).thenReturn(true);
+        Mockito.when(connection.getDatabase()).thenReturn(db);
 
         ResultSetExecution execution = this.translator.createResultSetExecution((QueryExpression)cmd, context,
                 this.utility.createRuntimeMetadata(), connection);
@@ -1389,18 +1389,18 @@ public class TestMongoDBQueryExecution {
 
         Command cmd = util.parseCommand(query);
         ExecutionContext context = Mockito.mock(ExecutionContext.class);
-        Mockito.stub(context.getBatchSize()).toReturn(256);
+        Mockito.when(context.getBatchSize()).thenReturn(256);
         MongoDBConnection connection = Mockito.mock(MongoDBConnection.class);
         DB db = Mockito.mock(DB.class);
 
         DBCollection dbCollection = Mockito.mock(DBCollection.class);
         for(String collection:expectedCollection) {
-            Mockito.stub(db.getCollection(collection)).toReturn(dbCollection);
+            Mockito.when(db.getCollection(collection)).thenReturn(dbCollection);
         }
 
         Cursor c = Mockito.mock(Cursor.class);
 
-        Mockito.stub(c.hasNext()).toAnswer(new Answer<Boolean>() {
+        Mockito.when(c.hasNext()).thenAnswer(new Answer<Boolean>() {
             boolean next = true;
             @Override
             public Boolean answer(InvocationOnMock invocation) throws Throwable {
@@ -1414,12 +1414,12 @@ public class TestMongoDBQueryExecution {
 
         DBObject dbo = Mockito.mock(DBObject.class);
 
-        Mockito.stub(c.next()).toReturn(dbo);
+        Mockito.when(c.next()).thenReturn(dbo);
 
-        Mockito.stub(dbCollection.aggregate((List<DBObject>)Mockito.anyList(), (AggregationOptions)Mockito.anyObject())).toReturn(c);
+        Mockito.when(dbCollection.aggregate(Mockito.<DBObject>anyList(), (AggregationOptions)Mockito.any())).thenReturn(c);
 
-        Mockito.stub(db.collectionExists(Mockito.anyString())).toReturn(true);
-        Mockito.stub(connection.getDatabase()).toReturn(db);
+        Mockito.when(db.collectionExists(Mockito.anyString())).thenReturn(true);
+        Mockito.when(connection.getDatabase()).thenReturn(db);
 
         ResultSetExecution execution = this.translator.createResultSetExecution((QueryExpression)cmd, context,
                 util.createRuntimeMetadata(), connection);

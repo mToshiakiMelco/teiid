@@ -20,7 +20,6 @@ package org.teiid.dqp.internal.process;
 
 import java.io.Serializable;
 import java.security.Principal;
-import java.security.acl.Group;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -51,6 +50,7 @@ import org.teiid.logging.LogManager;
 import org.teiid.metadata.MetadataFactory;
 import org.teiid.query.metadata.SystemMetadata;
 import org.teiid.query.metadata.TransformationMetadata;
+import org.teiid.security.GroupPrincipal;
 import org.teiid.security.SecurityHelper;
 
 
@@ -337,8 +337,8 @@ public class DQPWorkContext implements Serializable {
         Set<Principal> principals = subject.getPrincipals();
         for(Principal p: principals) {
             // this JBoss specific, but no code level dependencies
-            if ((p instanceof Group) && p.getName().equals("Roles")){ //$NON-NLS-1$
-                Group g = (Group)p;
+            if ((p instanceof GroupPrincipal) && p.getName().equals("Roles")){ //$NON-NLS-1$
+                GroupPrincipal g = (GroupPrincipal)p;
                 Enumeration<? extends Principal> rolesPrinciples = g.members();
                 while(rolesPrinciples.hasMoreElements()) {
                     roles.add(rolesPrinciples.nextElement().getName());

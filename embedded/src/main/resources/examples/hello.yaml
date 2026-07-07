@@ -1,0 +1,15 @@
+# Self-contained embedded Teiid example.
+# A single virtual VDB with no external data source: the view returns a constant row.
+# Run with:
+#   java -jar teiid-embedded-*-jar-with-dependencies.jar \
+#        --config hello.yaml --vdb demo --sql "select * from helloworld"
+server:
+  useDisk: false
+vdbs:
+  - name: demo
+    ddl: |
+      CREATE DATABASE demo VERSION '1';
+      USE DATABASE demo VERSION '1';
+      CREATE VIRTUAL SCHEMA app;
+      SET SCHEMA app;
+      CREATE VIEW helloworld AS SELECT 'HELLO WORLD' AS greeting;
