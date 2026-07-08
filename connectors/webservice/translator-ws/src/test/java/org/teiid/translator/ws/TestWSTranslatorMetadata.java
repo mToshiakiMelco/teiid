@@ -23,11 +23,11 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.Properties;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stax.StAXSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -65,7 +65,7 @@ public class TestWSTranslatorMetadata {
 
         Dispatch<Object> mockDispatch = Mockito.mock(Dispatch.class);
         StAXSource source = Mockito.mock(StAXSource.class);
-        Mockito.when(mockDispatch.invoke(Mockito.any(DataSource.class))).thenReturn(source);
+        Mockito.when(mockDispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(source);
         Mockito.when(mockConnection.createDispatch(Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
 
         CommandBuilder cb = new CommandBuilder(tm);
@@ -96,7 +96,7 @@ public class TestWSTranslatorMetadata {
         RuntimeMetadataImpl rm = new RuntimeMetadataImpl(tm);
 
         Dispatch<Object> mockDispatch = Mockito.mock(Dispatch.class);
-        Mockito.when(mockDispatch.invoke(Mockito.any(DataSource.class))).thenReturn(Mockito.mock(StAXSource.class));
+        Mockito.when(mockDispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(Mockito.mock(StAXSource.class));
         Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
 
         CommandBuilder cb = new CommandBuilder(tm);
