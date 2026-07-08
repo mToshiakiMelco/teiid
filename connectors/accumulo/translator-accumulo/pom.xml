@@ -63,6 +63,16 @@
             <artifactId>accumulo-minicluster</artifactId>
             <version>2.0.0</version>
             <scope>test</scope>
+            <exclusions>
+                <!-- hibernate-validator 6.0.11.Final (pulled transitively here) declares a
+                     test dependency on the non-existent org.openjfx:javafx.base:11.0.0-SNAPSHOT,
+                     which is not published to any repository and breaks dependency resolution.
+                     JavaFX is not used by these tests, so exclude it. -->
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx.base</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 	</dependencies>
 
