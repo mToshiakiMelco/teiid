@@ -1,0 +1,2842 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.6",
+  "serialNumber" : "urn:uuid:b2b696ff-7b28-3846-86e7-a37ff179e321",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2026-07-08T02:52:46Z",
+    "lifecycles" : [
+      {
+        "phase" : "build"
+      }
+    ],
+    "tools" : {
+      "components" : [
+        {
+          "type" : "library",
+          "author" : "OWASP Foundation",
+          "group" : "org.cyclonedx",
+          "name" : "cyclonedx-maven-plugin",
+          "version" : "2.9.1",
+          "description" : "CycloneDX Maven plugin",
+          "hashes" : [
+            {
+              "alg" : "MD5",
+              "content" : "9c7a565cf28cce58557d0c621c5ea4b1"
+            },
+            {
+              "alg" : "SHA-1",
+              "content" : "be882d5a22050bfa9d19090b1420c188617d0e1c"
+            },
+            {
+              "alg" : "SHA-256",
+              "content" : "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249"
+            },
+            {
+              "alg" : "SHA-512",
+              "content" : "c0f0b11026858166f872a2eb54719492e5cecaa0bc9cd6b30b3ecb4a174eed220f4a1b5829d18d6734128e778d3cb3db7ffed177c92866133129cb29081814a0"
+            },
+            {
+              "alg" : "SHA-384",
+              "content" : "d80964707dfe5caca8c70521d5066f57589304c0a657e6fbc7c0614ea0fc7b3b3dbe7778361eee0f54ba111e9cb0ffcb"
+            },
+            {
+              "alg" : "SHA3-384",
+              "content" : "80bc3a275d9514bc457461ff52a72add8c7ecbbc01d8912efce57139016c544ee776981851be0a58fa977ab4221f703f"
+            },
+            {
+              "alg" : "SHA3-256",
+              "content" : "142317d6f245390f4fd2d0c100b16281b8dfc5c0c2cff86943bdcc97039cb699"
+            },
+            {
+              "alg" : "SHA3-512",
+              "content" : "af0fb9137c90b65d1a07f72e4d51ae509956cdb8800f35c961b037cdda1fe4a14ce3b496cef71ba85f1621affcfe29cd42704ae4191ff0b090a9602087c8997b"
+            }
+          ]
+        }
+      ]
+    },
+    "component" : {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-parent@17.0.0-SNAPSHOT?type=pom",
+      "group" : "org.teiid",
+      "name" : "teiid-parent",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Federated SQL and XML query engine.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-parent@17.0.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid"
+        }
+      ]
+    },
+    "properties" : [
+      {
+        "name" : "maven.goal",
+        "value" : "makeAggregateBom"
+      },
+      {
+        "name" : "maven.scopes",
+        "value" : "compile,provided,runtime,system"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-common-core",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Core shared library",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-common-core"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-common-core"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1?type=jar",
+      "publisher" : "Eclipse Foundation",
+      "group" : "jakarta.activation",
+      "name" : "jakarta.activation-api",
+      "version" : "1.2.1",
+      "description" : "JavaBeans Activation Framework API jar",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "9b647398add993324d3d9e5effa6005a"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "562a587face36ec7eff2db7f2fc95425c6602bc1"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "8b0a0f52fa8b05c5431921a063ed866efaa41dadf2e3a7ee3e1961f2b0d9645b"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "c60edc99f119b9e0df0cf527e2512f2b7ab9db0e17c54e83850695f80f652c981eaae90a296db671cf7ed88a044c150224e030df333feb30f346e8a31fb794c6"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "07422d64a103aacb8956c2067175f2cc257494d2cc8dbde29ddf8d93778a2d4b3903565b17173a0b5230b59d535bd474"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "fe6be5e1fb1c0ee5236b2866c1e5058c84043fb4dc3dd5ad8f04e61c01c019c96e92ffdf1de0eaf7e657b2c02c6d898e"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "880a91ff9e978ac9208c84babd820dc2ded42e601d8a17688eb30883b598dec0"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "91c0b8cb956bdb06e79738a9db624022887b3d83838b708dd3c654f231ab6f9b4a27be2556fd14683cd6158bf8534b96acd2481054e0c946d6e9f641cc5af55b"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/eclipse-ee4j/jaf/jakarta.activation-api"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/eclipse-ee4j/jaf/issues/"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://dev.eclipse.org/mhonarc/lists/jakarta.ee-community/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/eclipse-ee4j/jaf/jakarta.activation-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-client",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Contains the packages related to communication, administrative api, sessioning and transport level messaging.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        },
+        {
+          "license" : {
+            "id" : "BSD-3-Clause",
+            "url" : "https://opensource.org/licenses/BSD-3-Clause"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-client"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-client"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+      "publisher" : "OpenTracing",
+      "group" : "io.opentracing",
+      "name" : "opentracing-api",
+      "version" : "0.31.0",
+      "description" : "OpenTracing Java API",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "5879aa403d24ba4c01088833f8d6fb8b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "1d3b149394dc4d612c037df32df5971f414be022"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "d25611b82dbae72610c98fb7b8ed1ced1c4b47ebb12265ccc29cbd79f02329a4"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "ee83b4d3ab3dcaa1961d072212c2d342947c1514d36d2e9630cdd153280500f3244f4f3321fd63af3d89d219c082a202ec618e5dede27070fa736df9dd78a0e7"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "2f98a7a6a5211927cbf32cd8d0a7baee2dfc758944cb84ee5915ccdcd160b1c4147aa1e73d606ad932edcbed449a4d2f"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "1ade8773c1b3d0cb90d814de9dbadb901304e1ee0ecb4ddd931e071ad3e22d06fcf8ee9528f988c96da8b172351f7fc6"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "31dc156bcb9f6056037d3b87e8e5dcdaa4efcae7ef68f14d70137d8831cff693"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f3a6b13a0ed19dc718869b70a60cdacb05d0d58a7540cd37deedba906d587d9108e1747666eb1e6cdb75af6b3ab4ab1c8d0c9a943529f7415905324d967d956e"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-api"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://api.bintray.com/maven/opentracing/maven/opentracing-java/;publish=1"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/opentracing/opentracing-java/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/io.opentracing/opentracing-util@0.31.0?type=jar",
+      "publisher" : "OpenTracing",
+      "group" : "io.opentracing",
+      "name" : "opentracing-util",
+      "version" : "0.31.0",
+      "description" : "OpenTracing utilities",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "f682259272ad28aa3c110d1a3af49305"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "a89ecf241924aed9f0e5a8cffa077764c85e94ea"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "ec55eff3db8138773fab743c74180bbdd54da885f2a865074400c0e48277edd6"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "c80d8caf4d2749de99c99a098b0b4495b25c5ded655a0acabc22e0f5888df434121514aba0fab18fd7c55b33a33b7fed62d9ff043d6d77564f237946eea5aa61"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "bf9c53d8e8057ad1c5b0e6927bd2a6079466855f7c7448edd58ce425541ead775c8e61475064ea401c5afc5518cebc57"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "e5efaa5b17c428e17d62dbfc572cd89ec4421228445aff42b454f1a2f567305034562de0898ba32a24567879894785f3"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "887c224686aef6662bf758ce27518a85946d0176c3ab378d5b76c4b5dd3dc3dc"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "e530dce103cf06b43ce8ea6db31f1d646f7b8febae47c62b2930b9e5be58122bf540e649e8b6cca93fe8fdb1fa73b05ad72c60cd8f6ebfb617b6d4ef271ee748"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/io.opentracing/opentracing-util@0.31.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-util"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://api.bintray.com/maven/opentracing/maven/opentracing-java/;publish=1"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/opentracing/opentracing-java/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-util"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/io.opentracing/opentracing-noop@0.31.0?type=jar",
+      "publisher" : "OpenTracing",
+      "group" : "io.opentracing",
+      "name" : "opentracing-noop",
+      "version" : "0.31.0",
+      "description" : "OpenTracing NoOp",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "b8af321bb7661670a172624f664edbd8"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "0b6fd6821dbc9f46d1e6dcfc28d60a0f016a87fa"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "35b8dd30503a463daa9849dc4ee3333946cd353d0ad8a32b14f3b907ebe29a2c"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "142e654768ff6c7faf4f039647aeb0a447be93897915f053d395dd82c03fc363dd4ad3004b3e103ddd0bad2c605fa1b3765a2d1aef80e94d515e10a6b85cf9ed"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "d9d070f7387f08ba2c578c165f05ccf17ea6afbf43355539388e74759d6bb4084e1f4e5c3bb8b441ed3c2febd77bb3cf"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "73120c1a364cae552e332d25f261c744243c26e46554fcb92d74bce90698ac4c011e0773b3d480a80035131e026551b2"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "40e272d95d45b4f28d13365a2422440bb31ffb0d6c1f8786fbbd64af6cf26145"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "ca2b674c8a90bb463fe888d91e437f2d315fdec43fa6a19254cb66d584aa0c2910a3913dd1015c79d121d50fcf06a2253e46d1ec1815b358fd2751869f969236"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/io.opentracing/opentracing-noop@0.31.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-noop"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://api.bintray.com/maven/opentracing/maven/opentracing-java/;publish=1"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/opentracing/opentracing-java/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/opentracing/opentracing-java/opentracing-noop"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-api",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "API for creating Translators and other extensions to Teiid",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-api"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar",
+      "publisher" : "EE4J Community",
+      "group" : "jakarta.transaction",
+      "name" : "jakarta.transaction-api",
+      "version" : "2.0.1",
+      "description" : "Jakarta Transactions",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "5315974a3935e342b40849478e1c9966"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "51a520e3fae406abb84e2e1148e6746ce3f80a1a"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "50c0a7c760c13ae6c042acf182b28f0047413db95b4636fb8879bcffab5ba875"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "13c1a21af3c8030794155a62b4cdc70ba1d951fbfc0aead9e89f3f529e7bb4473a070bd4a6c593ce1c0cfb781332bd62d21cf0b34e3751f99b0de463f566ec61"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "9484a0adc05a5ea5377f6037ac2d1efa1d59d172ac03b683580f7d3e542d6e26779128dd1a7fab41f7061156f66c3b44"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "064434509905dcaaeebd4e1eaeb26446cb911ff74f30d49e1b0c7f29a0e62fd9f5b84114129ec845eb99cc37cc4b5048"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "7d865d16dc3e2a2b7e097a305a33f7fd419ec4dcea2df1e278b66a74e59325bd"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "efe99bb4d2397b5d004b7aac679ec2ea0c13ce6c06fdcaec56b12f07d5938ac5f07df2937478b551955382612e2544819ea7f5827e0f6ea2726bbc1643dfdab3"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "EPL-2.0"
+          }
+        },
+        {
+          "license" : {
+            "id" : "GPL-2.0-with-classpath-exception"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://projects.eclipse.org/projects/ee4j.jta"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/eclipse-ee4j/jta-api/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://dev.eclipse.org/mhonarc/lists/jta-dev/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/eclipse-ee4j/jta-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-engine",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Relational, procedural, and xml core engine.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-engine"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-engine"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+      "group" : "org.locationtech.jts",
+      "name" : "jts-core",
+      "version" : "1.16.0",
+      "description" : "The JTS Topology Suite is an API for 2D linear geometry predicates and functions.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "855885aa7ad2858388559b89807ffd16"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "dd852eb51b92eec108415c0ce624a65d99d0daae"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "2b72752377712a3e13d4f60c19a229277f11bc9c23897dd0f758641b982e901b"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "f9cffc2e268238660b7b7761e2f564db5008ce29aeb0e05a73f142e87b6c42e346709f21b567c4d5e9b3ffd505e3ea23dff417dbad7242b48648b58d6af39019"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "ebc50a5318fc74f6e71934285cd4400e15b1b510c1d613266bd0c5068671dbe4ff0e84c60785ad7c4d5ecb5d8bfebb84"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "fc47df50b0531109d65e2f4385cc1fd5a5b0076e6cc42ff4060b7e225d37e18791d698f1773290e225ea440a8a65dfe9"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "ff5ef4b21733cd5c7ff14c0934c1798167590f82d536ab55095c7a760fdaaaef"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "81e073a326d9ec4cde47ee233bb556c82c2db8cad8e23fb3e9a4bee156ae58d53b78d06db4bd17fdb99671b5adf2583ff02f5613625e8af9677dfaaf6dddccb5"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "name" : "Eclipse Publish License, Version 1.0",
+            "url" : "https://github.com/locationtech/jts/blob/master/LICENSE_EPLv1.txt"
+          }
+        },
+        {
+          "license" : {
+            "id" : "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://www.locationtech.org/projects/technology.jts/jts-modules/jts-core"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/locationtech/jts/jts-modules/jts-core"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/io.opentracing.contrib/opentracing-concurrent@0.1.0?type=jar",
+      "group" : "io.opentracing.contrib",
+      "name" : "opentracing-concurrent",
+      "version" : "0.1.0",
+      "description" : "OpenTracing instrumentation for JDK concurrent package",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "03aeafdca3b4207a86db97b72a752c0d"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "1f6cd2589ae7e49058ac5c02717e034fb4f4123f"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "3cd9510e7dee4bae7ff4b924a9a92a703a75a2b8f70e4ae002966acb4bc8b23c"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "1cb154a2e2d038abed1e8dff000e9947835ad44bee43f2b333af6f41842f960f5d477b91739f58178c1d66acdba0727ffd500a4aa2d50adc0cc8e1266742667f"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "ba21d737a2f2e8a0918a5db397c9956c97ae0e3e1f87f4b86341ad9a2b03244e375276f4057fbdd6fd04dc43165053ac"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "02dcca5a0f898c90638d1b13f14ac932a5610d67ebc475cc60416931b6206a3d8c68ade5c06d3c27ac8ad19522cf32df"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "8dbc47a65996504f8a7c778f9bb6fcf5ab165c13c032ca9242576839289a3b1a"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "c7cbeb1bf3429512bbda690afd189df723002fd292cca411519f711637bec3f9ba919e6fe63a698b6248d40f6da2acd08bf775631ffa62b9459ab0ec8aae9e8f"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/io.opentracing.contrib/opentracing-concurrent@0.1.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/opentracing-contrib/java-concurrent"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://api.bintray.com/maven/opentracing/maven/opentracing-concurrent/;publish=1"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/opentracing-contrib/java-concurrent"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-optional-geo@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-optional-geo",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Optional geospatial functionality for Teiid.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-optional-geo@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-optional-geo"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-optional-geo"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.wololo/jts2geojson@0.13.0?type=jar",
+      "group" : "org.wololo",
+      "name" : "jts2geojson",
+      "version" : "0.13.0",
+      "description" : "JTS to GeoJSON converter",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "0dd1f22b5a3ea0e334e5ec9ed7a3888b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "9ff972c5b7fee946fb1577a8ea4d82f377ed55a4"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "a51ff9bd6b99e1d8046e5e47320d41f4185949cf5e1d721ff6d94aa4c53d26f4"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "f57c9466b2300af02c3f5039104ece7f17207662d46735d4cb4aba395239e157dc976733f2d3f7e1f83d96b11c7a8d764bc9a96cc9aab5a032d3f4f52d6b2734"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "f627c58efaaead224addbdf5c4c88fd3d2644c80bcf6b13910aeab1858a5dbd603dd4ff9ab9dfb0199e484195a64a8b6"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "ba0d1f57e901fd9acc6b94f43dce73fc07395a8a6611f4ffcc30f6f546c0dee243b9d60b4988988401213fec274408a2"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "b496d2ac04592801b05c1acf806f2a604813bc3cb2502270d9ba3747799127e2"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f84ade68be129b97980ebe50e88a65b8102465d5e9cdc4e6e7b5f41d71a48591221f224a003737aade413171f89217c16a711098b05c8a8530719b2db62a8d3e"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MIT",
+            "url" : "https://opensource.org/license/mit/"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.wololo/jts2geojson@0.13.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/bjornharrtell/jts2geojson"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/bjornharrtell/jts2geojson"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+      "publisher" : "FasterXML",
+      "group" : "com.fasterxml.jackson.core",
+      "name" : "jackson-databind",
+      "version" : "2.11.0.rc1",
+      "description" : "General data-binding functionality for Jackson: works on core streaming API",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "fa81fa6d51f301b87d17e51ab6c12fc6"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "544a860c36bd64eb2ba0ea4f1304ebc61846c9ea"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "58d5ba95d42c4858f55b5f77706982ec33a56c1ce4c1fa2203549400164f72ab"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "7b2184b8a1f9be2e251f0e66b9d7b075354fea7e130646cb7f46abb46aeb736f3b546f336e2ea70116b1d72cf71f2b4fc7e32cb7b566146325438fac9d90caf8"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "10ca21cf62e3690bfbab4fb116074a4a3e7e387b05f6f516275eb41c3a0c8e03ba78bb255bc366cc903b6325845e449a"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "207f47c11fae8df0ca22a23887ae4ffd88a8e996cbcac89d1be51b9810e8419348475766cd46166d90e67871a237fc6f"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "b66e7c80d05b58570606381a5c2a69d0e9cfb619db0448b987eaaf31fa78bec7"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "b77c78204bf1f828fdee60e52783a2d46fdbe260d3d77bdf469cfcce6c27a7f63abe9ea83c2d0ac1d50087067a4171d2f680febec1fe6214128f36a29d62bc77"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://github.com/FasterXML/jackson"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/FasterXML/jackson-databind/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/FasterXML/jackson-databind"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.11.0.rc1?type=jar",
+      "publisher" : "FasterXML",
+      "group" : "com.fasterxml.jackson.core",
+      "name" : "jackson-core",
+      "version" : "2.11.0.rc1",
+      "description" : "Core Jackson processing abstractions (aka Streaming API), implementation for JSON",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "b9a6350d26b20b9dc24ebeb10c95e1d5"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "24a6292f6ec145e0c4ee10145369010cba0daf67"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "c21fd055bf3d96820a34d0a298da792ac6a8fe80e6acc88a479d80228901253b"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "5f7e5e72f6c9a4c998f01b273f77a3432ed639592f4a63bde29e9bf4c26c8a54e6446b1a077a827165f401f6f474fc1bc7cf961ede550392b913bbe92222777c"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "e9259c06d5002496d40d99c0bca7d4d67399f889857ba6b9f73b82d73afc72837fc9c16adb25fcb7c0994caa2928a398"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "89250f81cfcf8d23f85c50cf8ae2cb4f1465c1ddb4347f45c161af4546ad49c2033b07cae22510fbcff554fc28fe748d"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "269f7befb7b82dd364f921e0c04a8b51228dd8673fa59136c02593daa790ece7"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "b2bf4f91960288c011be3d4679cb5631c267b3ff2f0383576eb900a2f0e2f5795899129d74f947755c082c49e9a6bd614ec0b64f092d2cd8e3d955827dd13638"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.11.0.rc1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/FasterXML/jackson-core"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/FasterXML/jackson-core/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/FasterXML/jackson-core"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.11.0.rc1?type=jar",
+      "publisher" : "FasterXML",
+      "group" : "com.fasterxml.jackson.core",
+      "name" : "jackson-annotations",
+      "version" : "2.11.0.rc1",
+      "description" : "Core annotations used for value types, used by Jackson data binding package.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "bcf3c9a1763d856254413ad357b9e50a"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "f38d7bd917d96c4db03a8bb49057b23e514ea01f"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "ef1ae64280fd818b84ebea11bf644f6075b6ff665e91a271dd4684e6fdb8c73b"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "149d7752453c2569676eee274af31750451952d7c1baeb49f79e092f5e40515fc656e4b37dc27ff39d29867c0bb2632d297e1de477b96b7a1c921df4dbf503bf"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "f31bf397e7b8a5455ca911b7a33fa0d49b9db8f290b2b0b29c5a7bfea77815b178f6f7265d1eaa345babc2cb157a6e18"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "c5ee3de9c3bf484844eff75748562507b8675aae243dccbf2a2081fa0dd92aa2a34858f850917bf987d0fc36270e6163"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "264050c164c02d76b7a904c60837c874717dc6e04c2c191ea37573d744e1c324"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "d3c93dcf8f84a8aae3cd1e8ba2657bf4659a8ce10530c35447be41dbb9f1015e1e65251991a1578148cb79d3c5a99d95aeb18ebd4547be94e0aa2c7d333090ef"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.11.0.rc1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://github.com/FasterXML/jackson"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/FasterXML/jackson-annotations/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/FasterXML/jackson-annotations"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.osgeo/proj4j@0.1.0?type=jar",
+      "group" : "org.osgeo",
+      "name" : "proj4j",
+      "version" : "0.1.0",
+      "description" : "Proj4J is a Java library to transform point coordinates from one geographic coordinate system to another, including datum transformations.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "f75ca1c892260a63219e9c2d238ddf54"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "19482c4b13722a3047fb7c3bea1ce962a4800e59"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "9945fe24699a922af702102045bac6062cb59b7edf7b657ca4e7e6d170a1e9de"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "00ccdaa83b57ad0f43ac9433ea3ecf2f430f8cd48c191411aa7ab2e331c6d9856c95667892e8a9ce55c74bfdede4532d1bb7a21a56fbc6f061d0b23de3e4a74a"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "629f162127ad35dd74258eef95f3f3f902dfe9170240a89d3d0ba9eb02ffed66dfe4c0a2b08ba4b6f85ff20c41a12aa9"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "a49aba66fc37278fc0c803ab04a19900826503d0e6b05bc323412b0977b44ed7eec49112010d5552beca3e611ff63a83"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "1098264fe10931d3e8f7b6a34a9a804c7f15aa0d52d4fb12d0e051c3d60f9321"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "40b0d47e9e5d490df94709249dd85b72bedf0d1ad358b02ee2a0044a9bb283ad6c57451936bea50ff83a590ca9dfa9eada42c2949a4d200837b2eaca4fa42dda"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.osgeo/proj4j@0.1.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://trac.osgeo.org/proj4j/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "http://oss.sonatype.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://lists.osgeo.org/pipermail/proj4j/"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/saxon-xom@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "saxon-xom",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Saxon adapter for XOM",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MPL-1.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/saxon-xom@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/saxon-xom"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/saxon-xom"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/net.sf.saxon/Saxon-HE@9.8.0-14?type=jar",
+      "publisher" : "Saxonica",
+      "group" : "net.sf.saxon",
+      "name" : "Saxon-HE",
+      "version" : "9.8.0-14",
+      "description" : "The XSLT and XQuery Processor",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "de7a103161ef0803fefb2f68170fe206"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "ff1c81e8d3de0b23703efc07ae06b88503c2a665"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "8ed390c8e35fa2639849501b6305198861c9e7fb33f159f3710dc6195eb6e9e8"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "cafd0765fbcad5b78915eb8aaaf7cfde001ffc2a86955909fc0469167e6e91fcb98924f0ad410ba3b01fdf977514bfb83a723f1767b718275ebb9fa608189131"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b474f0108dc3da133b07f5a5dd040383a48ec0e4c821d679d551d3fd0f58b4d2f9bc4dc18344884d67771d63a831dc5a"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "93e9ca57a2ba06ac30307709eb407c660b456cec7875a075fb802c2fd4d36aa89c1bc60cf0eeb2950fb1f6b27d1835e2"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "4cf11c2af3da6033b4396384e6f80449a415a2c3a0a3f841ca886b1f8aa758df"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "1b73c3dad6ddc1b17dd949bb5a28aa7daf01d0b9effbc59770fc46b5e326f9770794b8cbce5c0400934406ca050207493f002a2dc0d845f2763b79f64749a08c"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MPL-2.0",
+            "url" : "https://www.mozilla.org/MPL/2.0/"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/net.sf.saxon/Saxon-HE@9.8.0-14?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.saxonica.com/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://saxonica.plan.io/projects/saxon"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://sourceforge.net/mailarchive/forum.php?forum_name=saxon-help"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://dev.saxonica.com/repos/archive/opensource/"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.io7m.xom/xom@1.2.10?type=jar",
+      "group" : "com.io7m.xom",
+      "name" : "xom",
+      "version" : "1.2.10",
+      "description" : "The XOM Dual Streaming/Tree API for Processing XML",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "89d8543cd3ac8c78600cb1415008d48f"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "4165e25bef19aad134f6498cc277110b9bc5e52b"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "35134150151dc4d3295c7a617fcce35b1b9537cca92179f48bf97655bae6782f"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "09155f900fdf26edeaca9b9938d0c47f8360a7516a13231de957106c0bb09408d171e24924b29ec0ace1f88d55335fe8148c602719e28b9d854d27e07fa67874"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b9aad431518e87bd7e127d7a12f0767c81c6b0cd8560a984bf92ed20d4c4cecd7e5cb966220c84d78947cb1cd34ff2c2"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "96182b76d771a689bb8cbbc6c7f13d099fa3a8fbce69ab580b5e10e101d9a8b59958a3ebd52a163e50dbc48cb3a41b35"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "f5c0f7ccc65668c03e84f082855306872382604296bf0700e663bf597e6bb6c7"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "df5e8780a1da17525945ba52e4593dd62d5a9a41d745345b3198748d3f7a9cb8dc7553cdb6b6ac2ecc135a680601f3912f8afa11dcf5359652d1c48ffe5746b2"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "name" : "The GNU Lesser General Public License, Version 2.1",
+            "url" : "http://www.gnu.org/licenses/lgpl-2.1.html"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.io7m.xom/xom@1.2.10?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://xom.nu"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "http://java.net/projects/xom/sources"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://lists.ibiblio.org/pipermail/xom-interest/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://xom.dev.java.net/source/browse/xom/"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-optional-xml@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-optional-xml",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Optional XML functionality for Teiid.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-optional-xml@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-optional-xml"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-optional-xml"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-optional-json@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-optional-json",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Optional json functionality for Teiid.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-optional-json@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-optional-json"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-optional-json"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.jayway.jsonpath/json-path@2.4.0?type=jar",
+      "group" : "com.jayway.jsonpath",
+      "name" : "json-path",
+      "version" : "2.4.0",
+      "description" : "Java port of Stefan Goessner JsonPath.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "29169b4b1115bc851e5734ef35ecd42a"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "765a4401ceb2dc8d40553c2075eb80a8fa35c2ae"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "60441c74fb64e5a480070f86a604941927aaf684e2b513d780fb7a38fb4c5639"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "b55b30cf85ca12e6a492fd48d4b6bb0b1f3ba610c195aa1a36eda2a80e24bf7688a6a802362d398108e822f6dcb7b713cf421bb4208897fc4f5cc7b8b9b4c97c"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b4ab8b0a76910cd054cc9d44f99de2ccc80db171d7112010545fcf34e43af10cd856a01c4fef02e0a48769795f035af6"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "beaa4a04e764bd3139b25e514e2deeb4a7f91b8404709c9b7b4349ec7c60f81e15d9aea8f136a9eeb7601d1ff568c75b"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "5a60b7e4cac60f3f2066172f09a875ac60ce215e3ab95d366aa50913db1e5406"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "338a8b4873e3976068191f3a6a865e87a5eb205fded4c0a1dd39c562085ce0fccd0cfb1c4046821cbbaab8ccd6805b1694d018247cf5cf30b2efc8498b4433cf"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.jayway.jsonpath/json-path@2.4.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/jayway/JsonPath"
+        },
+        {
+          "type" : "vcs",
+          "url" : "scm:git:git://github.com/jayway/JsonPath.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.slf4j/slf4j-api@1.7.29?type=jar",
+      "publisher" : "QOS.ch",
+      "group" : "org.slf4j",
+      "name" : "slf4j-api",
+      "version" : "1.7.29",
+      "description" : "The slf4j API",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "75191c97f2d6ef4f990cbb4b2e56a46b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "e56bf4473a4c6b71c7dd397a833dce86d1993d9d"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "47b624903c712f9118330ad2fb91d0780f7f666c3f22919d0fc14522c5cad9ea"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "ca99cb8f73875eac2fbdb8b13b9801d1299dd3e93556bd002ec2f2c906fd88e4450b9cf4ab025951944fc490d03ff691189fb174440bd3f404e9717276b6f9e6"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "7934cdad41bdd66f9b7550f8a94234d512a1bb856998b397ffa699a4a3b6deb8530f7bf91b682ecbdbe7974a52d9fbc0"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "2f2cb6b01f32fe48ee0cc17c2d5dfd2719909bf6ab666d38db077da70158723c91beea9c8e915dff31df2865e58bce31"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "42ac7c13afee24f405b4c295c2908d3f91d5fd72882a8bbaeaf4534671065ff2"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "695ee03575e0c3320ab1e2ac7ce9027d734dc41a4b433d9bba5040575362bea2cb06a1711440b9d6461226e28b725a050d408110dc0dae0ba3bcb8f49631d7ac"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MIT",
+            "url" : "https://opensource.org/license/mit/"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.slf4j/slf4j-api@1.7.29?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.slf4j.org"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/qos-ch/slf4j/slf4j-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/net.minidev/json-smart@2.3?type=jar",
+      "publisher" : "Chemouni Uriel",
+      "group" : "net.minidev",
+      "name" : "json-smart",
+      "version" : "2.3",
+      "description" : "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "f2a921d4baaa7308de04eed4d8d72715"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "007396407491352ce4fa30de92efb158adb76b5b"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "903f48c8aa4c3f6426440b8d32de89fa1dc23b1169abde25e4e1d068aa67708b"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "977ffe05c17965b403a60471eb6c160103263bbe454e942d67d4d725e1826b504de6c15038ff01ea90632bf9ad8a31b47c6662613bb905f020effa68c44d6f9a"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "d3d68802a0379f45570af1028ae1c9532c399a8fa9956328f59d305b62add017c77835b139d135c7719efa73725bce83"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "df77b3e0be05434220b670bc22654172a2c3e16255df25e6155201ed034509bdf6c1e2558f5289a83222f12958f48ba9"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "060cd75a81db1a152da28f9594c9efb5389ac624865a6a55c95d2a95b9bcd300"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "342532fc4634437855e8feb8a202e1112f179e38dd90cb07332e750db36d3fcbf5d7cbef48814a59de0cbf0ab07fa4b3489215022fd33036256effd4e0e7cc48"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/net.minidev/json-smart@2.3?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.minidev.net/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/netplex/json-smart-v2"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/net.minidev/accessors-smart@1.2?type=jar",
+      "publisher" : "Chemouni Uriel",
+      "group" : "net.minidev",
+      "name" : "accessors-smart",
+      "version" : "1.2",
+      "description" : "Java reflect give poor performance on getter setter an constructor calls, accessors-smart use ASM to speed up those calls.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "c28b871d258b4d347559d2eb7ecec4a3"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "c592b500269bfde36096641b01238a8350f8aa31"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "0c7c265d62fc007124dc32b91336e9c4272651d629bc5fa1a4e4e3bc758eb2e4"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "39fe6a5ebd2ae2d33d8737c8407a8caa4f6a62ce2057d726bb82496d35104b76f230bbb9721e1db5f535fefa3d70ee88c0a5a5e4a3f1266d7317cae897ad0882"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "fd66aeb9655bbac142a595d90457497b8fdd908c8d0f35c9b331ccc111e89ba863ebb4d9463b768426d6445b59f35f75"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "4059f02102576b7e8f2be849cb35ec77daf992d07d08642699c1ab9b84a51756edca181be90e84ae31eac83c9372da9e"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "e8f203c6aed8ca994ea94c8ae236e833e7af1b76e582b52dc726f8a86373b6aa"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "2ef69cdd1e807cd2ec1cb3b1af9a5a6ad6eec7e1c87270f971b0d69a1865f173412d3932ebc187397cdce767d4b0f2cc64660080461b93dacbf4209e43bf84c4"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/net.minidev/accessors-smart@1.2?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.minidev.net/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/netplex/json-smart-v2"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.ow2.asm/asm@5.0.4?type=jar",
+      "publisher" : "ObjectWeb",
+      "group" : "org.ow2.asm",
+      "name" : "asm",
+      "version" : "5.0.4",
+      "description" : "A very small and fast Java bytecode manipulation framework",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "c8a73cdfdf802ab0220c860d590d0f84"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "0da08b8cce7bbf903602a25a3a163ae252435795"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "896618ed8ae62702521a78bc7be42b7c491a08e6920a15f89a3ecdec31e9a220"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "afee8f98ee21771f104318d95b839d9ea6ea083157bd62d8bc3462d9302dc20ea939d1b4ae2222f92f09b92bc9ab1317aff02734007f716cc805fe49b92a8a5a"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "84f68859e74fc5a1bbb32bad682b3554ba0b4177f1e152991defe37151bdc31c1378da2876fe995c19445ca793260170"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "e2208311fb6a0807a535d18f7053c66b006bad3ff47c0937b675131d667b243402f8a4ed79028f24482f4c2d542685a2"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "ad3bf09396094a4522742f61155d40953b7c0ff806942e827797a1bcab62a8cd"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "37ac38d0cbaf89113e53845fc73da643fec6a2a6a4a0c03106b7c3bf2c645744095762d9b20bcaf5b691c3d91175983ad8e915d40ce71cdb8feae0c2bce17fc8"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "BSD-4-Clause"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.ow2.asm/asm@5.0.4?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://asm.objectweb.org/asm/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "http://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "http://forge.objectweb.org/tracker/?group_id=23"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://www.objectweb.org/wws/arc/asm"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://svn.forge.objectweb.org/cgi-bin/viewcvs.cgi/asm/trunk/asm/"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-metadata@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-metadata",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Provides vdb metadata from index files.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "EPL-1.0",
+            "url" : "http://www.eclipse.org/legal/epl-v10.html"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-metadata@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-metadata"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-metadata"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.jboss/jboss-vfs@3.2.14.Final?type=jar",
+      "publisher" : "JBoss, A division of Red Hat, Inc",
+      "group" : "org.jboss",
+      "name" : "jboss-vfs",
+      "version" : "3.2.14.Final",
+      "description" : "A VFS library",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "71bca58b1b94bd03d7b18a75fe795c18"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "88fe7e18e3da1eabd64f6fdda9529e3dc00b15e9"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "63576c856a5a0c7adc5f6db562ce6962921cbef49e30bbbad80b61c477b8ec12"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "8fa987dfb34177fb2f6ed9ac25f72f00aec80239c1207dc3a85206ad4780782c1e96558cbd73821070dec68be84e24ef894f340f7e15e5cc8473523696a6eeb9"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "f5094eb8bf28abc33081fe7e135abe169cf1de4a7118bbaea787f01f245f3f54504d7354de3544135157504f95376a9d"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "0f829130f9c55752daef41703520f9f53201240eb51f3f8fd2fd0c36d0bfe25ab68d3f018c186b8f2df9ff41d7701a7f"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "c111dc3dd4a12651667ef06d4bb174e53eaa5aab64ef2597f535392ee185a8bb"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f72ef2968d8145d19d4e6baec3d7c4717326c01a46a96defab68a539810bfd12a302210533afd556d2f92f7ed32fa5ed4a49c8cf0a4398e6705aec0229277dcf"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "name" : "asl",
+            "url" : "http://repository.jboss.org/licenses/apache-2.0.txt"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.jboss/jboss-vfs@3.2.14.Final?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.jboss.org"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.jboss.org/browse/JBVFS"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://lists.jboss.org/pipermail/jboss-user/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/jbossas/jboss-vfs"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final?type=jar",
+      "publisher" : "JBoss by Red Hat",
+      "group" : "org.jboss.logging",
+      "name" : "jboss-logging",
+      "version" : "3.6.1.Final",
+      "description" : "The JBoss Logging Framework",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "acab989faf62db02c092448e95614fab"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "886afbb445b4016a37c8960a7aef6ebd769ce7e5"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "5e08a4b092dc85b337f0910a740571d8720cfa565fabd880a8caf94a657ca416"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "3dee7fadc04407538248def38fd0ae885c2aa454e2a38ecaaf7ef74abc1505f4efcd3e1a4e024c9f28d37fabb663c19cc3f29b7641b3094d5a504e93730c4a22"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "26b1ba129bd9cd1777ba90da087d343698b1f7fa48b855ce0a1030afc1c7ae81433f75e7b8293eb42fc063ce35386280"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "7fbed126ae79578a4136d769f31d9d879e14cd0f0b78ec91515be7cfce5fea7f1c1ca10bf752d19edd5511d3d4ef5254"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "0de02a61df5dc9fbb8e9a344a8744356f3e867b4567ca2baa0bbf16a8763de01"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "2c7b522c04afab22900222f287da17c1526b3b3fd6a9376298613112918afb050af3d8ead2239be3e7dc3337ae74a636bf1963a1bc56426996b0f7283681bb3c"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.jboss.org"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.redhat.com/"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://lists.jboss.org/pipermail/jboss-user/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/jboss-logging/jboss-logging/tree/main/"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/cache-caffeine@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "cache-caffeine",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Caffeine based cache",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/cache-caffeine@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/cache-caffeine"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/cache-caffeine"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.github.ben-manes.caffeine/caffeine@2.8.0?type=jar",
+      "group" : "com.github.ben-manes.caffeine",
+      "name" : "caffeine",
+      "version" : "2.8.0",
+      "description" : "A high performance caching library for Java 8+",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "d6dbff7e409b1c2ad88930e2c220ea13"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "6000774d7f8412ced005a704188ced78beeed2bb"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "b1107a4097be4515a923a55bc63da04e411e6964aa045bece1bc7acb84872ed7"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "f8fefdb21cb04d9c229d3c27dc03bdf141a943aed99d29b1349cafb10758901ae8a564c0c00ff55f574d1cbce4bef9e33b6f6cf92b8abd31a8d98009870db800"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b70f9ab921f973fddd8ef3e2fe360b7a12fb7ef43abea782efc537fe2b82bcb5ecd169f0462463c18e747a5ca618c2c3"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "38a2157b8d3e12252005b5201d02b7315630a20859397f919b0fb52f59ab5db8f8bcc38c6415ea76a30e2c814b12f63d"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "2dd0e3f02b7678d371d45beade2083cc0bdc2c0ed0b66d559b7fa58d36c52362"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "1a11118563ac803e09bf7719962306458615ab21b2b4afd18eeb228e1bd768e60a2b992e6130e4a0c02714d5c9c4146d3a293428da736779eb46ef34ff0b4695"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.github.ben-manes.caffeine/caffeine@2.8.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/ben-manes/caffeine"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/ben-manes/caffeine"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.google.errorprone/error_prone_annotations@2.3.3?type=jar",
+      "group" : "com.google.errorprone",
+      "name" : "error_prone_annotations",
+      "version" : "2.3.3",
+      "description" : "Sonatype helps open source projects to set up Maven repositories on https://oss.sonatype.org/",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "eb4aa14a92f3099780ab93d0ad781b3c"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "42aa5155a54a87d70af32d4b0d06bf43779de0e2"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "ec59f1b702d9afc09e8c3929f5c42777dec623a6ea2731ac694332c7d7680f5a"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "48bfbdf0cf1c08dc54a3748f315d40c548eaabc08dfc4347e625a2afb7ae206970c0b74bd7e6cf9356314b5c26d2ab51522fb192cf8d6c6b5a6a610021544501"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "03faabdb6626601026b11069276e6e5a91ff69532fdefe29080d1d06bae5bcd0b24fa9ddcc1f0a3cc262dec0c5f872fe"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "b2713a1ac39de66ba796466239762c3de498a9e52779f847ba6d066687b3e4d52027f492ce2ecb56463a1d7a42edad87"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "cc84ad905a4ae01dd3951e0afa2f612fc8c0effe5df5969f2c05aaf0fcad8e24"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f146a8105507707983b2a110980471bc86f0068833b538f5e5b8de47fec220a5366d1c5874e9b6f67b829d0dc99a82b44e96f6280e015d8cf29eefa67768db5d"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.google.errorprone/error_prone_annotations@2.3.3?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/error_prone_parent/error_prone_annotations"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/google/error-prone/error_prone_annotations"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.checkerframework/checker-qual@3.42.0?type=jar",
+      "group" : "org.checkerframework",
+      "name" : "checker-qual",
+      "version" : "3.42.0",
+      "description" : "checker-qual contains annotations (type qualifiers) that a programmer writes to specify Java code for type-checking by the Checker Framework.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "4c55448dcbfe9c3702f7758fc8fe0086"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "638ec33f363a94d41a4f03c3e7d3dcfba64e402d"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "ccaedd33af0b7894d9f2f3b644f4d19e43928e32902e61ac4d10777830f5aac7"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "85f66a42a079b4578256b5b6daa4b1ba5aa684614982cab2c9cd83324f2c3fcdde420de6ad51b2f439c4c809be10b376f80f5a45110a1ee6caa59e6298c0ec95"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "1ee2061f8da04e77b577030edc21904b0700aceb241fcb5a549767d44c9b71267217850dc89aca41e65d188e148f8d58"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "5d89ffdcafb432d84503340827bc6fae5f6fc290fde59c1eb491996c15fd92ad00dfd1e781d8c9d6ef4ca9c4f3e5b264"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "25c061a632fc0263f974761afad7f4209dd6582a461f3049e39d260640308393"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "75a743fb2577bb3252de16a86cf10922626689e75918136c83caa3a26db669f7c770779cfb9b9003ba5b181ffc9f7d871ab250cccfc4ff19e587a0384b448929"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "MIT"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.checkerframework/checker-qual@3.42.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://checkerframework.org/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/typetools/checker-framework.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/connectors@17.0.0-SNAPSHOT?type=pom",
+      "group" : "org.teiid",
+      "name" : "connectors",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "This project is aggregator for all the supported connectors.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/connectors@17.0.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/connectors"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/connectors"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid.connectors/file@17.0.0-SNAPSHOT?type=pom",
+      "group" : "org.teiid.connectors",
+      "name" : "file",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid.connectors/file@17.0.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/connectors/file"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/connectors/file"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid.connectors/file-api@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid.connectors",
+      "name" : "file-api",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "The java API for the File",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid.connectors/file-api@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/connectors/file/file-api"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/connectors/file/file-api"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/commons-net/commons-net@3.6?type=jar",
+      "publisher" : "The Apache Software Foundation",
+      "group" : "commons-net",
+      "name" : "commons-net",
+      "version" : "3.6",
+      "description" : "Apache Commons Net library contains a collection of network utilities and protocol implementations. Supported protocols include: Echo, Finger, FTP, NNTP, NTP, POP3(S), SMTP(S), Telnet, Whois",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "b46661b01cc7aeec501f1cd3775509f1"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "b71de00508dcb078d2b24b5fa7e538636de9b3da"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "d3b3866c61a47ba3bf040ab98e60c3010d027da0e7a99e1755e407dd47bc2702"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "dba414cea9fb4b47dfe6d20c347bd91052185dd958996bfdd1e709f66b5fa7812ebb0dad80c47e72bcc0075b3b5526c705216efe771cac1cc53b2f7923124faf"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "da4e47cc5b90fdb04f76ec59d9e1c17dcb6c85507fa0867dbfea02ec8b7788fb9c7a8cfa13064675004805ec476f4802"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "8afdb2f0b22a357bd7bd554a8583eaf4c2ec385288abe06cf4da66d3d4af3e66bee242104a4e0252e3af7964a9c4d426"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "a031d0a8e3deff004c46b903e8a12995f80f1e161893f596bde45d5a2b06c870"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "5e55185f5cebb4763a44cb6672c181e0cf804ae3bfd90db8ba86207502ddd7bd99c6c60aabb0d1dcce8b77f9961ccf02db1f6414eeb23bbe62f5ad29a0f84c7d"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/commons-net/commons-net@3.6?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://commons.apache.org/proper/commons-net/"
+        },
+        {
+          "type" : "build-system",
+          "url" : "https://builds.apache.org/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "http://issues.apache.org/jira/browse/NET"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "http://mail-archives.apache.org/mod_mbox/commons-user/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://svn.apache.org/viewvc/commons/proper/net/tags/NET_3_6"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid.connectors/translator-file@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid.connectors",
+      "name" : "translator-file",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "This translator provides access to the file system.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid.connectors/translator-file@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/connectors/file/translator-file"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/connectors/file/translator-file"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-runtime@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-runtime",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Teiid Runtime Engine",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        },
+        {
+          "license" : {
+            "id" : "BSD-3-Clause",
+            "url" : "https://opensource.org/licenses/BSD-3-Clause"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-runtime@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-runtime"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-runtime"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/io.netty/netty-all@4.1.42.Final?type=jar",
+      "publisher" : "The Netty Project",
+      "group" : "io.netty",
+      "name" : "netty-all",
+      "version" : "4.1.42.Final",
+      "description" : "Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers and clients.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "66cf7373ca6cc9ec351e1aff21aa6b56"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "1f3b748883200198d5ced0202c8bf771860ae136"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "6d79d4ac3e999c91bb9137128c532ce322a8fe439c28ae8fb8ae0fde622245f9"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "9adb4396ccbc2a27e24247ebbb06a98a24dddf8e668b8468e25745401a0eb5940a8bb05befe387a579745eae024a5cb120940cc5419859c1111ceab9954b6724"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "4f9f5aa519fe19494e9b0e9a7f4e6999d837f7887f8ee4830ea5684142ef43c29247b9cb461c4f3ea1f100cb002e89e2"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "78d36de8d549ee5e9a8d768154ce5f2ba79117b8fe22579034ffb55e9b95bc5d5b0d2a2f12c271b322c052049847bf46"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "ac270ca6fb0af9699927074bc8a0ce621e95660dbe15b4ff8b6199003e6922a8"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "9cb765d84cc1ebe3bcd1b1ff50715a296a459e9bd6664d240616e6107b18f1f416cff73ba96d1017745e4f9dd0efda91c466555e7b319860a77bbed993a0b13a"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/io.netty/netty-all@4.1.42.Final?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://netty.io/netty-all/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/netty/netty/netty-all"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.teiid/teiid-embedded@17.0.0-SNAPSHOT?type=jar",
+      "group" : "org.teiid",
+      "name" : "teiid-embedded",
+      "version" : "17.0.0-SNAPSHOT",
+      "description" : "Standalone embedded Teiid runtime with a self-managed Translator/DataSource/VDB registry, YAML/DDL based VDB deployment and a query CLI. Replaces the WildFly subsystem and Spring Boot starter based startup with an explicit EmbeddedServer bootstrap.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.teiid/teiid-embedded@17.0.0-SNAPSHOT?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://teiid.io/teiid-embedded"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/teiid/teiid/teiid-embedded"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.11.0.rc1?type=jar",
+      "publisher" : "FasterXML",
+      "group" : "com.fasterxml.jackson.dataformat",
+      "name" : "jackson-dataformat-yaml",
+      "version" : "2.11.0.rc1",
+      "description" : "Support for reading and writing YAML-encoded data via Jackson abstractions.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "eca5106029988145e71714b60225ffaf"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "96974d2a21880ed33371bc82dba6fc93bea7a351"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "683aa0cbbc0bbd252ecce97170f0b8fea6d0597d45aa314c8b55a6fc703fab3f"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "67ddda3dced297e73e399b8e36f34bce38121c899aa0731034718a7c3c10a2ad866fa8570686d12af87a544b76c0c01e5ddc420cb03709627b1b9c61088ee192"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "8e20588be27976423d514617d96be471fd28d685910924d6fb00a351a61c0e2af510962e037d413098451763860666d7"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "c774b95e95c10f5608ab3364c838deab43c693704369930b1f67b3f5d02617a4e60545654b4a22ebd8f8d7d8df43f59d"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "3b93facb453fea5a6081699321d47ca580476aa123dbccb4ece80193dff82505"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "054881bcdef71b326c813e830ad03ae3c0f72fee6ba76d1005e8b89fcaf04078a75482c7934a5a21735be21892b95f3645b9e4803880b5a2abf64c49f003bd40"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.11.0.rc1?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://github.com/FasterXML/jackson-dataformats-text"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/FasterXML/jackson-dataformats-text/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "http://github.com/FasterXML/jackson-dataformats-text/jackson-dataformat-yaml"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.yaml/snakeyaml@1.26?type=jar",
+      "group" : "org.yaml",
+      "name" : "snakeyaml",
+      "version" : "1.26",
+      "description" : "YAML 1.1 parser and emitter for Java",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "72d987f6193910b63c5e6881ab64da32"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "a78a8747147d2c5807683e76ec2b633e95c14fe9"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "d87d607e500885356c03c1cae61e8c2e05d697df8787d5aba13484c2eb76a844"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "dce610268daab6fd6bac54f819f2f5795b17a57792b0f5553ee72acfbe8b9f81367ba7419655be8348369eb489259b14ddab7cea7a0c3c1b193bd62e0715cfd3"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "0fa4b6459d02d0b2fe4dbfb59644b0f4dee3593a0993b66b218dfda0a66da81eb89bd56610e7baa459495ea18807eb41"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "34cbfa4e7dfe46494e9d647a4eb11a3b9f76fba49c6f9b7b793dcd9976a4d803e4709433da9f02e37b032cb3d1653589"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "f621ab1024a4171bcf9bee241a78a0d0360a8af333c079b5bbe8a2085d4ebc46"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "00c0155a31557c89304142a55bd57c9f93911e89bdf7e81e001a56b6b15d131b62666b34601ae822a4d2ec3a63017de497cec7084f290e66613ad6da968ac4c9"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.yaml/snakeyaml@1.26?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://www.snakeyaml.org"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://bitbucket.org/asomov/snakeyaml/issues"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://bitbucket.org/asomov/snakeyaml/src"
+        }
+      ]
+    }
+  ],
+  "dependencies" : [
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-parent@17.0.0-SNAPSHOT?type=pom",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-geo@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/saxon-xom@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-xml@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-json@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-metadata@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/cache-caffeine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/connectors@17.0.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.teiid/teiid-runtime@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-embedded@17.0.0-SNAPSHOT?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+        "pkg:maven/io.opentracing/opentracing-util@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/io.opentracing/opentracing-util@0.31.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+        "pkg:maven/io.opentracing/opentracing-noop@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/io.opentracing/opentracing-noop@0.31.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar",
+        "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+        "pkg:maven/jakarta.activation/jakarta.activation-api@1.2.1?type=jar",
+        "pkg:maven/io.opentracing.contrib/opentracing-concurrent@0.1.0?type=jar",
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/io.opentracing.contrib/opentracing-concurrent@0.1.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+        "pkg:maven/io.opentracing/opentracing-noop@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-optional-geo@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+        "pkg:maven/org.wololo/jts2geojson@0.13.0?type=jar",
+        "pkg:maven/org.osgeo/proj4j@0.1.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.wololo/jts2geojson@0.13.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.locationtech.jts/jts-core@1.16.0?type=jar",
+        "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+        "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.11.0.rc1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+      "dependsOn" : [
+        "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.11.0.rc1?type=jar",
+        "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.11.0.rc1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.11.0.rc1?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.11.0.rc1?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.osgeo/proj4j@0.1.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/saxon-xom@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/net.sf.saxon/Saxon-HE@9.8.0-14?type=jar",
+        "pkg:maven/com.io7m.xom/xom@1.2.10?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/net.sf.saxon/Saxon-HE@9.8.0-14?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/com.io7m.xom/xom@1.2.10?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-optional-xml@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/net.sf.saxon/Saxon-HE@9.8.0-14?type=jar",
+        "pkg:maven/org.teiid/saxon-xom@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/com.io7m.xom/xom@1.2.10?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-optional-json@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/com.jayway.jsonpath/json-path@2.4.0?type=jar",
+        "pkg:maven/net.minidev/json-smart@2.3?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/com.jayway.jsonpath/json-path@2.4.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/net.minidev/json-smart@2.3?type=jar",
+        "pkg:maven/org.slf4j/slf4j-api@1.7.29?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/net.minidev/json-smart@2.3?type=jar",
+      "dependsOn" : [
+        "pkg:maven/net.minidev/accessors-smart@1.2?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/net.minidev/accessors-smart@1.2?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.ow2.asm/asm@5.0.4?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.ow2.asm/asm@5.0.4?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.slf4j/slf4j-api@1.7.29?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-metadata@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.jboss/jboss-vfs@3.2.14.Final?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.jboss/jboss-vfs@3.2.14.Final?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/cache-caffeine@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/com.github.ben-manes.caffeine/caffeine@2.8.0?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.checkerframework/checker-qual@3.42.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/com.github.ben-manes.caffeine/caffeine@2.8.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.checkerframework/checker-qual@3.42.0?type=jar",
+        "pkg:maven/com.google.errorprone/error_prone_annotations@2.3.3?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.checkerframework/checker-qual@3.42.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/com.google.errorprone/error_prone_annotations@2.3.3?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/connectors@17.0.0-SNAPSHOT?type=pom",
+      "dependsOn" : [
+        "pkg:maven/org.teiid.connectors/file@17.0.0-SNAPSHOT?type=pom"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid.connectors/file@17.0.0-SNAPSHOT?type=pom",
+      "dependsOn" : [
+        "pkg:maven/org.teiid.connectors/file-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid.connectors/translator-file@17.0.0-SNAPSHOT?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid.connectors/file-api@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.jboss/jboss-vfs@3.2.14.Final?type=jar",
+        "pkg:maven/commons-net/commons-net@3.6?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/commons-net/commons-net@3.6?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid.connectors/translator-file@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid.connectors/file-api@17.0.0-SNAPSHOT?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-runtime@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-common-core@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-api@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-engine@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-geo@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-xml@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-optional-json@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/io.netty/netty-all@4.1.42.Final?type=jar",
+        "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1?type=jar",
+        "pkg:maven/org.jboss.logging/jboss-logging@3.6.1.Final?type=jar",
+        "pkg:maven/io.opentracing/opentracing-api@0.31.0?type=jar",
+        "pkg:maven/io.opentracing/opentracing-util@0.31.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/io.netty/netty-all@4.1.42.Final?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.teiid/teiid-embedded@17.0.0-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.teiid/teiid-runtime@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.teiid/teiid-client@17.0.0-SNAPSHOT?type=jar",
+        "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+        "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.11.0.rc1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.11.0.rc1?type=jar",
+      "dependsOn" : [
+        "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.0.rc1?type=jar",
+        "pkg:maven/org.yaml/snakeyaml@1.26?type=jar",
+        "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.11.0.rc1?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.yaml/snakeyaml@1.26?type=jar",
+      "dependsOn" : [ ]
+    }
+  ]
+}
