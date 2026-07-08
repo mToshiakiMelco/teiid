@@ -29,11 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hibernate.boot.TempTableDdlTransactionHandling;
-import org.hibernate.hql.spi.id.AbstractMultiTableBulkIdStrategyImpl;
-import org.hibernate.hql.spi.id.IdTableSupportStandardImpl;
-import org.hibernate.hql.spi.id.local.AfterUseAction;
-import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
 import org.teiid.GeometryInputSource;
 import org.teiid.core.types.JDBCSQLTypeInfo;
 import org.teiid.language.Expression;
@@ -44,6 +39,7 @@ import org.teiid.translator.MetadataProcessor;
 import org.teiid.translator.SourceSystemFunctions;
 import org.teiid.translator.Translator;
 import org.teiid.translator.TypeFacility;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.JDBCMetadataProcessor;
 import org.teiid.translator.jdbc.SQLConversionVisitor;
@@ -436,37 +432,13 @@ public class TeiidExecutionFactory extends JDBCExecutionFactory {
     }
 
     @Override
-    public SQLDialect getDialect() {
-        if (dialect == null) {
-            //TODO: should pull in our own dialect
-            this.dialect = new SQLDialect() {
-
-                @Override
-                public String getTypeName(int code, long length, int precision, int scale) {
-                    return JDBCSQLTypeInfo.getJavaClassName(code);
-                }
-
-                public AbstractMultiTableBulkIdStrategyImpl getDefaultMultiTableBulkIdStrategy() {
-                    return new LocalTemporaryTableBulkIdStrategy(
-                            new IdTableSupportStandardImpl() {
-                                @Override
-                                public String getCreateIdTableCommand() {
-                                    return "create local temporary table";
-                                }
-                                @Override
-                                public String getDropIdTableCommand() {
-                                    return "drop table";
-                                }
-                                @Override
-                                public String getCreateIdTableStatementOptions() {
-                                    return "";
-                                }
-                            }, AfterUseAction.DROP,
-                            TempTableDdlTransactionHandling.NONE);
-                }
-            };
-        }
-        return super.getDialect();
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect() {
+            @Override
+            public String getTypeName(int code, long length, int precision, int scale) {
+                return JDBCSQLTypeInfo.getJavaClassName(code);
+            }
+        };
     }
 
     @Override

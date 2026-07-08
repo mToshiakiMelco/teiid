@@ -69,9 +69,11 @@ import org.teiid.translator.TranslatorException;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.JDBCMetadataProcessor;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.translator.jdbc.TemplateFunctionModifier;
 import org.teiid.translator.jdbc.sybase.SybaseExecutionFactory;
 import org.teiid.util.Version;
@@ -81,6 +83,27 @@ import org.teiid.util.Version;
  */
 @Translator(name="sqlserver", description="A translator for Microsoft SQL Server Database")
 public class SQLServerExecutionFactory extends SybaseExecutionFactory {
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect("create table", "") { //$NON-NLS-1$ //$NON-NLS-2$
+            @Override
+            public String getTypeName(int code, long length, int precision, int scale) {
+                switch (code) {
+                case java.sql.Types.TINYINT:
+                    return "tinyint"; //$NON-NLS-1$
+                case java.sql.Types.SMALLINT:
+                    return "smallint"; //$NON-NLS-1$
+                case java.sql.Types.INTEGER:
+                    return "int"; //$NON-NLS-1$
+                case java.sql.Types.BIGINT:
+                    return "bigint"; //$NON-NLS-1$
+                default:
+                    return super.getTypeName(code, length, precision, scale);
+                }
+            }
+        };
+    }
 
     final class SQLServerMetadataProcessor
             extends JDBCMetadataProcessor {
@@ -627,17 +650,6 @@ public class SQLServerExecutionFactory extends SybaseExecutionFactory {
     @Override
     public boolean supportsSelectWithoutFrom() {
         return true;
-    }
-
-    @Override
-    public String getHibernateDialectClassName() {
-        if (getVersion().compareTo(NINE_0) >= 0) {
-            if (getVersion().compareTo(TEN_0) >= 0) {
-                return "org.hibernate.dialect.SQLServer2008Dialect"; //$NON-NLS-1$
-            }
-            return "org.hibernate.dialect.SQLServer2005Dialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.SQLServerDialect"; //$NON-NLS-1$
     }
 
     @Override

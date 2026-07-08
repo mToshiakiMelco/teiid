@@ -39,17 +39,24 @@ import org.teiid.translator.TranslatorException;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.JDBCMetadataProcessor;
 import org.teiid.translator.jdbc.ModFunctionModifier;
 import org.teiid.translator.jdbc.SQLConversionVisitor;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.translator.jdbc.hsql.AddDiffModifier;
 import org.teiid.translator.jdbc.oracle.ConcatFunctionModifier;
 import org.teiid.translator.jdbc.postgresql.PostgreSQLExecutionFactory;
 
 @Translator(name="h2", description="A translator for open source H2 Database")
 public class H2ExecutionFactory extends JDBCExecutionFactory {
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect("create cached local temporary table if not exists", "on commit drop transactional"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
 
     @Override
     public void start() throws TranslatorException {
@@ -247,11 +254,6 @@ public class H2ExecutionFactory extends JDBCExecutionFactory {
     @Override
     public boolean supportsSelectWithoutFrom() {
         return true;
-    }
-
-    @Override
-    public String getHibernateDialectClassName() {
-        return "org.hibernate.dialect.H2Dialect"; //$NON-NLS-1$
     }
 
     @Override

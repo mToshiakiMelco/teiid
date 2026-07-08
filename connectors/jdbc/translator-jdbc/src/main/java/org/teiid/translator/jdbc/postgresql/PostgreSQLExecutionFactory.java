@@ -27,6 +27,7 @@ import java.nio.CharBuffer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Types;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,12 +66,14 @@ import org.teiid.translator.TranslatorProperty;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.EscapeSyntaxModifier;
 import org.teiid.translator.jdbc.ExtractFunctionModifier;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.ModFunctionModifier;
 import org.teiid.translator.jdbc.SQLConversionVisitor;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.translator.jdbc.oracle.LeftOrRightFunctionModifier;
 import org.teiid.translator.jdbc.oracle.MonthOrDayNameFunctionModifier;
 import org.teiid.translator.jdbc.oracle.OracleFormatFunctionModifier;
@@ -86,6 +89,42 @@ import org.teiid.util.Version;
 public class PostgreSQLExecutionFactory extends JDBCExecutionFactory {
 
     public static String POSTGRESQL = "postgresql"; //$NON-NLS-1$
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new PostgreSQLSQLDialect();
+    }
+
+    /**
+     * PostgreSQL-specific temporary-table SQL, previously derived from the
+     * Hibernate PostgreSQL dialect.
+     */
+    protected static class PostgreSQLSQLDialect extends DefaultSQLDialect {
+
+        public PostgreSQLSQLDialect() {
+            super("create temporary table", "on commit drop"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        @Override
+        public String getTypeName(int code, long length, int precision, int scale) {
+            switch (code) {
+            case Types.TINYINT:
+            case Types.SMALLINT:
+                return "int2"; //$NON-NLS-1$
+            case Types.INTEGER:
+                return "int4"; //$NON-NLS-1$
+            case Types.BIGINT:
+                return "int8"; //$NON-NLS-1$
+            case Types.REAL:
+            case Types.FLOAT:
+                return "float4"; //$NON-NLS-1$
+            case Types.DOUBLE:
+                return "float8"; //$NON-NLS-1$
+            default:
+                return super.getTypeName(code, length, precision, scale);
+            }
+        }
+    }
 
     static final String UUID_TYPE = "uuid"; //$NON-NLS-1$
     private static final String INTEGER_TYPE = "integer"; //$NON-NLS-1$
@@ -870,14 +909,6 @@ public class PostgreSQLExecutionFactory extends JDBCExecutionFactory {
     @Override
     public boolean supportsSelectWithoutFrom() {
         return true;
-    }
-
-    @Override
-    public String getHibernateDialectClassName() {
-        if (getVersion().compareTo(EIGHT_2) >= 0) {
-            return "org.hibernate.dialect.PostgreSQL82Dialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.PostgreSQL81Dialect"; //$NON-NLS-1$
     }
 
     @Override

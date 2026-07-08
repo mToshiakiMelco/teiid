@@ -436,14 +436,6 @@ public class TeradataExecutionFactory extends JDBCExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        if (getVersion().getMajorVersion() >= 14) {
-            return "org.hibernate.dialect.Teradata14Dialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.TeradataDialect"; //$NON-NLS-1$
-    }
-
-    @Override
     protected boolean supportsBooleanExpressions() {
         return false;
     }

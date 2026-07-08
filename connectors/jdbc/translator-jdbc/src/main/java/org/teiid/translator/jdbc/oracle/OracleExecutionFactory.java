@@ -98,6 +98,7 @@ import org.teiid.translator.TypeFacility;
 import org.teiid.translator.TypeFacility.RUNTIME_CODES;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.ExtractFunctionModifier;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
@@ -105,6 +106,7 @@ import org.teiid.translator.jdbc.JDBCMetadataProcessor;
 import org.teiid.translator.jdbc.JDBCPlugin;
 import org.teiid.translator.jdbc.LocateFunctionModifier;
 import org.teiid.translator.jdbc.SQLConversionVisitor;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.translator.jdbc.TemplateFunctionModifier;
 import org.teiid.util.Version;
 
@@ -1261,11 +1263,73 @@ public class OracleExecutionFactory extends JDBCExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        if (getVersion().getMajorVersion() >= 10) {
-            return "org.hibernate.dialect.Oracle10gDialect"; //$NON-NLS-1$
+    protected SQLDialect createDialect() {
+        return new OracleSQLDialect();
+    }
+
+    /**
+     * Oracle-specific temporary-table SQL, previously derived from the Hibernate
+     * Oracle dialect.
+     */
+    static class OracleSQLDialect extends DefaultSQLDialect {
+
+        @Override
+        public String getTypeName(int code, long length, int precision, int scale) {
+            switch (code) {
+            case Types.TINYINT:
+                return "number(3,0)"; //$NON-NLS-1$
+            case Types.SMALLINT:
+                return "number(5,0)"; //$NON-NLS-1$
+            case Types.INTEGER:
+                return "number(10,0)"; //$NON-NLS-1$
+            case Types.BIGINT:
+                return "number(19,0)"; //$NON-NLS-1$
+            case Types.BIT:
+            case Types.BOOLEAN:
+                return "number(1,0)"; //$NON-NLS-1$
+            case Types.NUMERIC:
+            case Types.DECIMAL:
+                return "number(" + precision + "," + scale + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            case Types.DOUBLE:
+                return "double precision"; //$NON-NLS-1$
+            case Types.REAL:
+            case Types.FLOAT:
+                return "float"; //$NON-NLS-1$
+            case Types.CHAR:
+                return "char(" + length + " char)"; //$NON-NLS-1$ //$NON-NLS-2$
+            case Types.VARCHAR:
+            case Types.LONGVARCHAR:
+            case Types.NCHAR:
+            case Types.NVARCHAR:
+            case Types.LONGNVARCHAR:
+                return "varchar2(" + length + " char)"; //$NON-NLS-1$ //$NON-NLS-2$
+            case Types.DATE:
+                return "date"; //$NON-NLS-1$
+            case Types.TIME:
+            case Types.TIMESTAMP:
+                return "timestamp"; //$NON-NLS-1$
+            case Types.BLOB:
+            case Types.BINARY:
+            case Types.VARBINARY:
+            case Types.LONGVARBINARY:
+                return "blob"; //$NON-NLS-1$
+            case Types.CLOB:
+            case Types.NCLOB:
+                return "clob"; //$NON-NLS-1$
+            default:
+                return "varchar2(" + length + " char)"; //$NON-NLS-1$ //$NON-NLS-2$
+            }
         }
-        return "org.hibernate.dialect.Oracle9iDialect"; //$NON-NLS-1$
+
+        @Override
+        public String getCreateTemporaryTableString() {
+            return "create global temporary table"; //$NON-NLS-1$
+        }
+
+        @Override
+        public String getCreateTemporaryTablePostfix() {
+            return "on commit delete rows"; //$NON-NLS-1$
+        }
     }
 
     @Override

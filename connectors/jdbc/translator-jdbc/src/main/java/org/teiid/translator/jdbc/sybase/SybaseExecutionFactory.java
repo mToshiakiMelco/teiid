@@ -534,14 +534,6 @@ public class SybaseExecutionFactory extends BaseSybaseExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        if (getVersion().compareTo(FIFTEEN_0_2) >= 0) {
-            return "org.hibernate.dialect.SybaseASE15Dialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.Sybase11Dialect"; //$NON-NLS-1$
-    }
-
-    @Override
     public boolean supportsGroupByRollup() {
         //TODO: there is support in SQL Anywhere/IQ, but not ASE
         return false;

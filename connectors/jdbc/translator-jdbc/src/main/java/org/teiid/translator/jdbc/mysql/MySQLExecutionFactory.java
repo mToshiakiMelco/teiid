@@ -49,10 +49,12 @@ import org.teiid.translator.TranslatorException;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.JDBCMetadataProcessor;
 import org.teiid.translator.jdbc.LocateFunctionModifier;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.util.Version;
 
 
@@ -64,6 +66,11 @@ public class MySQLExecutionFactory extends JDBCExecutionFactory {
 
     public static final Version FIVE_6 = Version.getVersion("5.6"); //$NON-NLS-1$
     public static final Version FIVE_0 = Version.getVersion("5.0"); //$NON-NLS-1$
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect("create temporary table if not exists", ""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
 
     private static final String TINYINT = "tinyint(1)"; //$NON-NLS-1$
 
@@ -493,14 +500,6 @@ public class MySQLExecutionFactory extends JDBCExecutionFactory {
     @Override
     public boolean supportsSelectWithoutFrom() {
         return true;
-    }
-
-    @Override
-    public String getHibernateDialectClassName() {
-        if (isVersion5OrGreater()) {
-            return "org.hibernate.dialect.MySQL5Dialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.MySQLDialect"; //$NON-NLS-1$
     }
 
     @Override
