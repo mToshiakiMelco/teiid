@@ -1349,11 +1349,13 @@
                         <groupId>org.eclipse.persistence</groupId>
                         <artifactId>eclipselink</artifactId>
                     </exclusion>
-                    <exclusion>
-			            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
-			            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-			        </exclusion>
-                    <!-- <exclusion> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
+                    <!-- jboss-jaxrs-api_2.0_spec is intentionally NOT excluded: the oreva
+                         odata-core classes (e.g. FormatParserFactory.getParser) expose
+                         javax.ws.rs.core.MediaType in their signatures, which javac must be
+                         able to load to compile calls into oreva even though Teiid's own code
+                         has migrated to jakarta.ws.rs. The javax and jakarta APIs live in
+                         different packages and coexist without conflict. -->
+                    <!-- <exclusion> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId>
                         </exclusion> -->
                 </exclusions>
             </dependency>
