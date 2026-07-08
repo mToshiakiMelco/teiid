@@ -1112,7 +1112,8 @@ public class ODataSQLBuilder extends RequestURLHierarchyVisitor {
         }
         //wrap with a new context as we've changed the projection
         if (currentContext == null) {
-            this.context = ApplyDocumentNode.buildApplyDocumentNode(this.context, nameGenerator, apply.getEdmStructuredType());
+            this.context = ApplyDocumentNode.buildApplyDocumentNode(this.context, nameGenerator,
+                    AggregateDecimalScale.wrap(apply.getEdmStructuredType()));
         } else {
             this.context = currentContext;
         }
