@@ -39,20 +39,20 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
-import javax.servlet.DispatcherType;
+import jakarta.servlet.DispatcherType;
 
 import org.apache.olingo.commons.api.format.ContentType;
 import org.apache.olingo.commons.core.Encoder;
+import org.eclipse.jetty.client.BytesRequestContent;
+import org.eclipse.jetty.client.ContentResponse;
 import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.ContentResponse;
-import org.eclipse.jetty.client.util.BytesContentProvider;
-import org.eclipse.jetty.client.util.StringContentProvider;
+import org.eclipse.jetty.client.StringRequestContent;
+import org.eclipse.jetty.ee10.servlet.FilterHolder;
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -237,7 +237,6 @@ public class TestODataIntegration {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        http.setStopTimeout(5000);
         http.start();
     }
 
@@ -465,9 +464,9 @@ public class TestODataIntegration {
                 "}";
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x")
             .method("POST")
-            .content(new StringContentProvider(payload))
-            .header("Content-Type", "application/json")
-            .header("Prefer", "return=minimal")
+            .body(new StringRequestContent(payload))
+            .headers(h -> h.put("Content-Type", "application/json"))
+            .headers(h -> h.put("Prefer", "return=minimal"))
             .send();
         assertEquals(204, response.getStatus());
         assertTrue(response.getHeaders().get("OData-EntityId").endsWith("northwind/m/x('ABCDEFG')"));
@@ -533,9 +532,9 @@ public class TestODataIntegration {
                 "</entry>";
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/PostTable")
             .method("POST")
-            .content(new StringContentProvider(payload))
-            .header("Content-Type", "application/xml")
-            .header("Prefer", "return=minimal")
+            .body(new StringRequestContent(payload))
+            .headers(h -> h.put("Content-Type", "application/xml"))
+            .headers(h -> h.put("Prefer", "return=minimal"))
             .send();
         assertEquals(204, response.getStatus());
         assertTrue(response.getHeaders().get("OData-EntityId"),
@@ -554,9 +553,9 @@ public class TestODataIntegration {
                 "}";
         response = http.newRequest(baseURL + "/northwind/m/PostTable")
                 .method("POST")
-                .content(new StringContentProvider(jsonPlayload))
-                .header("Content-Type", "application/json")
-                .header("Prefer", "return=representation")
+                .body(new StringRequestContent(jsonPlayload))
+                .headers(h -> h.put("Content-Type", "application/json"))
+                .headers(h -> h.put("Prefer", "return=representation"))
                 .send();
         assertEquals(201, response.getStatus());
         assertEquals("{\"@odata.context\":\""+baseURL+"/northwind/m/$metadata#PostTable\","
@@ -573,7 +572,7 @@ public class TestODataIntegration {
 
         response = http.newRequest(baseURL + "/northwind/m/PostTable(4)/clobval")
                 .method("POST")
-                .content(new StringContentProvider("clob value"))
+                .body(new StringRequestContent("clob value"))
                 .send();
         assertEquals(405, response.getStatus());
 
@@ -590,7 +589,7 @@ public class TestODataIntegration {
 
         response = http.newRequest(baseURL + "/northwind/m/PostTable(4)/clobval")
                 .method("PUT")
-                .content(new StringContentProvider("clob value"))
+                .body(new StringRequestContent("clob value"))
                 .send();
         assertEquals(204, response.getStatus());
 
@@ -656,10 +655,10 @@ public class TestODataIntegration {
                 "}";
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider(payload), ContentType.APPLICATION_JSON.toString())
+                .body(new StringRequestContent(payload)).headers(h -> h.put("Content-Type", ContentType.APPLICATION_JSON.toString()))
                 // when this header is defined the return should be expanded, but due to way olingo
                 // designed it is going to be a big refactoring.
-                .header("Prefer", "return=representation")
+                .headers(h -> h.put("Prefer", "return=representation"))
                 .send();
         assertEquals(201, response.getStatus());
         assertEquals("{\"@odata.context\":\""+baseURL+"/northwind/m/$metadata#x\",\"a\":\"teiid\",\"b\":\"dv\"}",
@@ -692,10 +691,10 @@ public class TestODataIntegration {
                 "}";
         response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider(payload), ContentType.APPLICATION_JSON.toString())
+                .body(new StringRequestContent(payload)).headers(h -> h.put("Content-Type", ContentType.APPLICATION_JSON.toString()))
                 // when this header is defined the return should be expanded, but due to way olingo
                 // designed it is going to be a big refactoring.
-                .header("Prefer", "return=representation")
+                .headers(h -> h.put("Prefer", "return=representation"))
                 .send();
         assertEquals(201, response.getStatus());
         assertEquals("{\"@odata.context\":\""+baseURL+"/northwind/m/$metadata#x\",\"a\":\"teiid\",\"b\":\"dv\"}",
@@ -777,7 +776,7 @@ public class TestODataIntegration {
     public void testActionStream() throws Exception {
         ContentResponse response = http.newRequest(baseURL + "/loopy/vm1/actionXML")
                 .method("POST")
-                .content(new StringContentProvider("<name>foo2</name>"), "application/xml")
+                .body(new StringRequestContent("<name>foo2</name>")).headers(h -> h.put("Content-Type", "application/xml"))
                 .send();
         assertEquals(200, response.getStatus());
         assertEquals("<name>foo2</name>",
@@ -788,7 +787,7 @@ public class TestODataIntegration {
     public void testAllowHeaderOnMethodNotSupported() throws Exception {
         ContentResponse response = http.newRequest(baseURL + "/loopy/vm1/actionXML")
                 .method("GET")
-                .content(new StringContentProvider("<name>foo2</name>"), "application/xml")
+                .body(new StringRequestContent("<name>foo2</name>")).headers(h -> h.put("Content-Type", "application/xml"))
                 .send();
         assertEquals(405, response.getStatus());
         assertEquals("POST", getHeader(response, "Allow"));
@@ -798,7 +797,7 @@ public class TestODataIntegration {
     public void testActionSimpleParameters() throws Exception {
         ContentResponse response = http.newRequest(baseURL + "/loopy/vm1/procActionJSON")
                 .method("POST")
-                .content(new StringContentProvider("{\"x\": \"foo\", \"y\": 4.5}"), "application/json")
+                .body(new StringRequestContent("{\"x\": \"foo\", \"y\": 4.5}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(200, response.getStatus());
         assertEquals("{\"x1\":\"foo\",\"y1\":4.5}",
@@ -853,7 +852,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider("{\"b\":\"b\", \"c\":5}"), "application/json")
+                .body(new StringRequestContent("{\"b\":\"b\", \"c\":5}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(201, response.getStatus());
     }
@@ -890,7 +889,7 @@ public class TestODataIntegration {
         ContentResponse response = null;
         response = http.newRequest(baseURL + "/northwind/vw/x")
                 .method("GET")
-                .header("Accept", "application/xml")
+                .headers(h -> h.put("Accept", "application/xml"))
                 .send();
 
         assertEquals(200, response.getStatus());
@@ -987,7 +986,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider("{\"a\":\"x\",\"b\":[1,2,3]}"), "application/json")
+                .body(new StringRequestContent("{\"a\":\"x\",\"b\":[1,2,3]}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(201, response.getStatus());
     }
@@ -1007,7 +1006,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x('x')")
                 .method("PATCH")
-                .content(new StringContentProvider("{\"a\":\"x\",\"b\":[1,2,3]}"), "application/json")
+                .body(new StringRequestContent("{\"a\":\"x\",\"b\":[1,2,3]}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(204, response.getStatus());
     }
@@ -1093,7 +1092,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/vw/x")
                 .method("POST")
-                .content(new StringContentProvider("{\"i\":1}"), "application/json")
+                .body(new StringRequestContent("{\"i\":1}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(200, response.getStatus());
     }
@@ -1224,7 +1223,7 @@ public class TestODataIntegration {
         teiid.deployVDB("northwind", mmd);
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/vw/x?$format=json")
-            .header("Prefer", "odata.maxpagesize=1")
+            .headers(h -> h.put("Prefer", "odata.maxpagesize=1"))
             .send();
 
         assertEquals(200, response.getStatus());
@@ -1351,19 +1350,19 @@ public class TestODataIntegration {
 
         response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider("{\"a\":\"a\", \"b\":\"b\", \"c\":5}"), "application/json")
+                .body(new StringRequestContent("{\"a\":\"a\", \"b\":\"b\", \"c\":5}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(201, response.getStatus());
 
         response = http.newRequest(baseURL + "/northwind/m/x(a='a',b='b')")
                 .method("PATCH")
-                .content(new StringContentProvider("{\"c\":10}"), "application/json")
+                .body(new StringRequestContent("{\"c\":10}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(204, response.getStatus());
 
         response = http.newRequest(baseURL + "/northwind/m/x(a='a',b='b')")
                 .method("PUT")
-                .content(new StringContentProvider("{\"a\":\"a\", \"b\":\"b\", \"c\":5}"), "application/json")
+                .body(new StringRequestContent("{\"a\":\"a\", \"b\":\"b\", \"c\":5}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(204, response.getStatus());
     }
@@ -1382,7 +1381,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x(a='a',b='b')")
                 .method("PUT")
-                .content(new StringContentProvider("{\"a\":\"a\", \"b\":\"b\", \"c\":5}"), "application/json")
+                .body(new StringRequestContent("{\"a\":\"a\", \"b\":\"b\", \"c\":5}")).headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(500, response.getStatus());
         assertTrue(localClient.isRollback());
@@ -1403,13 +1402,13 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x('a')/c/$value")
                 .method("PUT")
-                .content(new BytesContentProvider("6".getBytes()))
+                .body(new BytesRequestContent("6".getBytes()))
                 .send();
         assertEquals(204, response.getStatus());
 
         response = http.newRequest(baseURL + "/northwind/m/x('a')/b/$value")
                 .method("PUT")
-                .content(new BytesContentProvider("6".getBytes()))
+                .body(new BytesRequestContent("6".getBytes()))
                 .send();
         assertEquals(204, response.getStatus());
     }
@@ -1535,7 +1534,7 @@ public class TestODataIntegration {
                 "}";
         response = http.newRequest(baseURL + "/northwind/m/x('a')/y_FKX/$ref")
                 .method("POST")
-                .content(new StringContentProvider(payload), ContentType.APPLICATION_JSON.toString())
+                .body(new StringRequestContent(payload)).headers(h -> h.put("Content-Type", ContentType.APPLICATION_JSON.toString()))
                 .send();
         assertEquals(204, response.getStatus());
     }
@@ -1570,7 +1569,7 @@ public class TestODataIntegration {
                 "}";
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x('a')/y_FKX")
                 .method("POST")
-                .content(new StringContentProvider(payload), ContentType.APPLICATION_JSON.toString())
+                .body(new StringRequestContent(payload)).headers(h -> h.put("Content-Type", ContentType.APPLICATION_JSON.toString()))
                 .send();
         assertEquals(201, response.getStatus());
     }
@@ -2040,7 +2039,7 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/$batch")
                 .method("POST")
-                .content(new StringContentProvider(batch), "multipart/mixed;boundary=batch_8194-cf13-1f56")
+                .body(new StringRequestContent(batch)).headers(h -> h.put("Content-Type", "multipart/mixed;boundary=batch_8194-cf13-1f56"))
                 .send();
 
         assertEquals(202, response.getStatus());
@@ -2176,8 +2175,8 @@ public class TestODataIntegration {
 
         ContentResponse response = http.newRequest(baseURL + "/northwind/m/x")
                 .method("POST")
-                .content(new StringContentProvider("{\"a\":\"b\", \"b\":\"2000-02-02T22:22:22Z\"}"),
-                        "application/json")
+                .body(new StringRequestContent("{\"a\":\"b\", \"b\":\"2000-02-02T22:22:22Z\"}"))
+                .headers(h -> h.put("Content-Type", "application/json"))
                 .send();
         assertEquals(201, response.getStatus());
 
@@ -2457,7 +2456,7 @@ public class TestODataIntegration {
 
         response = http.newRequest(baseURL + "/northwind/m/Customers?$expand=Orders_FK0&$skip=2")
                 .method("GET")
-                .header("Prefer", "odata.maxpagesize=1")
+                .headers(h -> h.put("Prefer", "odata.maxpagesize=1"))
                 .send();
         assertEquals(200, response.getStatus());
         assertTrue(response.getContentAsString().startsWith("{\"@odata.context\":\""+baseURL+"/northwind/m/$metadata#Customers(Orders_FK0())\","
