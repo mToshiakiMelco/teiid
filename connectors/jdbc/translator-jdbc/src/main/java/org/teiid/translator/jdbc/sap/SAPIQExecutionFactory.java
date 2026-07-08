@@ -249,11 +249,6 @@ public class SAPIQExecutionFactory extends BaseSybaseExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        return "org.hibernate.dialect.SybaseAnywhereDialect"; //$NON-NLS-1$
-    }
-
-    @Override
     public boolean supportsGroupByRollup() {
         return true;
     }

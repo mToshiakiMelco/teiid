@@ -18,20 +18,42 @@
 
 package org.teiid.translator.jdbc;
 
-import org.hibernate.dialect.Dialect;
-import org.hibernate.hql.spi.id.AbstractMultiTableBulkIdStrategyImpl;
-
 /**
- * A pruned version of a Hibernate {@link Dialect} for use by Teiid
+ * A minimal, Teiid-owned abstraction of the source-specific SQL needed to
+ * create the temporary tables used for dependent-join pushdown. This used to
+ * be a pruned view over a Hibernate {@code Dialect}; it is now fully
+ * decoupled from Hibernate and implemented natively by the execution
+ * factories.
  */
 public interface SQLDialect {
 
-    public AbstractMultiTableBulkIdStrategyImpl getDefaultMultiTableBulkIdStrategy();
-
     //TODO: there's a chance that the type is not supported by the source
-    //which will throw a HibernateException - this is likely a modeling error
+    //which will throw an exception - this is likely a modeling error
     //rather than something we need to generally consider
     public String getTypeName(int code, long length, int precision, int scale);
 
+    /**
+     * @return true if this source supports the temporary tables used for
+     *         dependent joins.
+     */
+    public boolean supportsTemporaryTables();
+
+    /**
+     * @return the command used to create a temporary table, e.g.
+     *         {@code create local temporary table}.
+     */
+    public String getCreateTemporaryTableString();
+
+    /**
+     * @return the options appended after the temporary table definition, e.g.
+     *         {@code on commit delete rows}. May be an empty string.
+     */
+    public String getCreateTemporaryTablePostfix();
+
+    /**
+     * @return the command used to drop a temporary table, e.g.
+     *         {@code drop table}.
+     */
+    public String getDropTemporaryTableString();
 
 }

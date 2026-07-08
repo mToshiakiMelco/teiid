@@ -40,12 +40,19 @@ import org.teiid.translator.TranslatorException;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.AliasModifier;
 import org.teiid.translator.jdbc.ConvertModifier;
+import org.teiid.translator.jdbc.DefaultSQLDialect;
 import org.teiid.translator.jdbc.FunctionModifier;
 import org.teiid.translator.jdbc.JDBCExecutionFactory;
 import org.teiid.translator.jdbc.LocateFunctionModifier;
 import org.teiid.translator.jdbc.ModFunctionModifier;
+import org.teiid.translator.jdbc.SQLDialect;
 
 public class BaseDB2ExecutionFactory extends JDBCExecutionFactory {
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect("declare global temporary table", "not logged"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
 
     private final class NullHandlingFormatModifier extends
             ConvertModifier.FormatModifier {

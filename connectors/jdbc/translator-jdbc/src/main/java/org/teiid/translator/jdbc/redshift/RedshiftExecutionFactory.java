@@ -28,6 +28,7 @@ import org.teiid.translator.Translator;
 import org.teiid.translator.TranslatorException;
 import org.teiid.translator.TypeFacility;
 import org.teiid.translator.jdbc.FunctionModifier;
+import org.teiid.translator.jdbc.SQLDialect;
 import org.teiid.translator.jdbc.postgresql.PostgreSQLExecutionFactory;
 
 
@@ -37,6 +38,16 @@ import org.teiid.translator.jdbc.postgresql.PostgreSQLExecutionFactory;
  */
 @Translator(name="redshift", description="A translator for Redshift")
 public class RedshiftExecutionFactory extends PostgreSQLExecutionFactory {
+
+    @Override
+    protected SQLDialect createDialect() {
+        return new PostgreSQLSQLDialect() {
+            @Override
+            public String getCreateTemporaryTableString() {
+                return "create temporary  table"; //$NON-NLS-1$
+            }
+        };
+    }
 
     @Override
     public void start() throws TranslatorException {

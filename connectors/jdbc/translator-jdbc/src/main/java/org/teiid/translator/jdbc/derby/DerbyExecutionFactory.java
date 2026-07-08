@@ -191,17 +191,6 @@ public class DerbyExecutionFactory extends BaseDB2ExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        if (this.getVersion().compareTo(TEN_6) >= 0) {
-            if (this.getVersion().compareTo(TEN_7) >= 0) {
-                return "org.hibernate.dialect.DerbyTenSevenDialect"; //$NON-NLS-1$
-            }
-            return "org.hibernate.dialect.DerbyTenSixDialect"; //$NON-NLS-1$
-        }
-        return "org.hibernate.dialect.DerbyTenFiveDialect"; //$NON-NLS-1$
-    }
-
-    @Override
     public boolean supportsGroupByRollup() {
         return this.getVersion().compareTo(TEN_6) >= 0;
     }

@@ -20,11 +20,27 @@ package org.teiid.dialect;
 
 import java.sql.Types;
 
+import org.hibernate.boot.model.TypeContributions;
+import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.descriptor.sql.internal.DdlTypeImpl;
+import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
+
 public class TeiidEightDialect extends TeiidDialect {
 
     public TeiidEightDialect() {
         super();
-        registerColumnType(Types.VARBINARY, "varbinary"); //$NON-NLS-1$
+    }
+
+    public TeiidEightDialect(DialectResolutionInfo info) {
+        super(info);
+    }
+
+    @Override
+    protected void registerColumnTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
+        super.registerColumnTypes(typeContributions, serviceRegistry);
+        DdlTypeRegistry ddl = typeContributions.getTypeConfiguration().getDdlTypeRegistry();
+        ddl.addDescriptor(new DdlTypeImpl(Types.VARBINARY, "varbinary", this)); //$NON-NLS-1$
     }
 
 }

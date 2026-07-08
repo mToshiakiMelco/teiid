@@ -18,8 +18,6 @@
 
 package org.teiid.translator.jdbc;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Blob;
@@ -59,9 +57,7 @@ import org.teiid.core.types.GeographyType;
 import org.teiid.core.types.GeometryType;
 import org.teiid.core.types.JDBCSQLTypeInfo;
 import org.teiid.core.types.JsonType;
-import org.teiid.core.util.MixinProxy;
 import org.teiid.core.util.PropertiesUtils;
-import org.teiid.core.util.ReflectionHelper;
 import org.teiid.core.util.StringUtil;
 import org.teiid.core.util.TimestampWithTimezone;
 import org.teiid.language.Argument;
@@ -1628,7 +1624,7 @@ public class JDBCExecutionFactory extends ExecutionFactory<DataSource, Connectio
      * @return the post script for the temp table create
      */
     public String getCreateTemporaryTablePostfix(boolean inTransaction) {
-        return getDialect().getDefaultMultiTableBulkIdStrategy().getIdTableSupport().getCreateIdTableStatementOptions();
+        return getDialect().getCreateTemporaryTablePostfix();
     }
 
     /**
@@ -1637,35 +1633,27 @@ public class JDBCExecutionFactory extends ExecutionFactory<DataSource, Connectio
      * @return the temp table creation ddl
      */
     public String getCreateTemporaryTableString(boolean inTransaction) {
-        return getDialect().getDefaultMultiTableBulkIdStrategy().getIdTableSupport().getCreateIdTableCommand();
+        return getDialect().getCreateTemporaryTableString();
     }
 
     public SQLDialect getDialect() {
         if (dialect == null) {
-            String name = getHibernateDialectClassName();
-            if (name != null) {
-                try {
-                    Object impl = ReflectionHelper.create(name, null, this.getClass().getClassLoader());
-                    InvocationHandler handler = new MixinProxy(new Object[] {impl});
-                    this.dialect = (SQLDialect) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class<?>[]{SQLDialect.class}, handler);
-                } catch (TeiidException e) {
-                    LogManager.logDetail(LogConstants.CTX_CONNECTOR, e, name, "could not be loaded"); //$NON-NLS-1$
-                }
-            }
-            if (dialect == null) {
-                dialect = new DefaultSQLDialect();
-            }
+            dialect = createDialect();
         }
         return dialect;
     }
 
-    public String getHibernateDialectClassName() {
-        return null;
+    /**
+     * @return the Teiid-native {@link SQLDialect} for this source. Sources that
+     *         need source-specific temporary-table SQL override this.
+     */
+    protected SQLDialect createDialect() {
+        return new DefaultSQLDialect();
     }
 
     @Override
     public boolean supportsDependentJoins() {
-        return enableDependentJoins && getDialect().getDefaultMultiTableBulkIdStrategy() != null;
+        return enableDependentJoins && getDialect().supportsTemporaryTables();
     }
 
     @Override

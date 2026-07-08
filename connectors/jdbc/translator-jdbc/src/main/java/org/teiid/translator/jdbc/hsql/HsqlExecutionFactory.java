@@ -196,11 +196,6 @@ public class HsqlExecutionFactory extends JDBCExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        return "org.hibernate.dialect.HSQLDialect"; //$NON-NLS-1$
-    }
-
-    @Override
     public boolean supportsDependentJoins() {
         return getVersion().compareTo(TWO_0) >= 0;
     }

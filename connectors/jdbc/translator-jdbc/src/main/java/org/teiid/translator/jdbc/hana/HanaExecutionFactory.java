@@ -240,11 +240,6 @@ public class HanaExecutionFactory extends JDBCExecutionFactory {
     }
 
     @Override
-    public String getHibernateDialectClassName() {
-        return "org.hibernate.dialect.HANARowStoreDialect"; //$NON-NLS-1$
-    }
-
-    @Override
     public List<String> getSupportedFunctions() {
         List<String> supportedFunctions = new ArrayList<String>();
         supportedFunctions.addAll(super.getSupportedFunctions());

@@ -24,249 +24,308 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.hibernate.LockMode;
-import org.hibernate.boot.TempTableDdlTransactionHandling;
+import org.hibernate.boot.model.FunctionContributions;
+import org.hibernate.boot.model.TypeContributions;
+import org.hibernate.dialect.DatabaseVersion;
 import org.hibernate.dialect.Dialect;
-import org.hibernate.dialect.function.NoArgSQLFunction;
-import org.hibernate.dialect.function.StandardSQLFunction;
-import org.hibernate.dialect.function.VarArgsSQLFunction;
+import org.hibernate.dialect.pagination.AbstractLimitHandler;
+import org.hibernate.dialect.pagination.LimitHandler;
+import org.hibernate.dialect.sequence.SequenceSupport;
+import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo;
 import org.hibernate.engine.jdbc.env.spi.NameQualifierSupport;
-import org.hibernate.hql.spi.id.IdTableSupportStandardImpl;
-import org.hibernate.hql.spi.id.MultiTableBulkIdStrategy;
-import org.hibernate.hql.spi.id.local.AfterUseAction;
-import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
-import org.hibernate.type.*;
+import org.hibernate.metamodel.mapping.EntityMappingType;
+import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
+import org.hibernate.query.spi.Limit;
+import org.hibernate.query.sqm.function.SqmFunctionRegistry;
+import org.hibernate.query.sqm.mutation.internal.temptable.AfterUseAction;
+import org.hibernate.query.sqm.mutation.internal.temptable.LocalTemporaryTableInsertStrategy;
+import org.hibernate.query.sqm.mutation.internal.temptable.LocalTemporaryTableMutationStrategy;
+import org.hibernate.query.sqm.mutation.spi.SqmMultiTableInsertStrategy;
+import org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategy;
+import org.hibernate.dialect.temptable.TemporaryTable;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.sql.ast.spi.SqlAppender;
+import org.hibernate.type.BasicType;
+import org.hibernate.type.BasicTypeReference;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.descriptor.sql.internal.DdlTypeImpl;
+import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
+import org.hibernate.type.spi.TypeConfiguration;
 
+/**
+ * A Hibernate {@link Dialect} for the Teiid server, reimplemented against the
+ * Hibernate 6 dialect SPI.
+ */
 public class TeiidDialect extends Dialect {
-    private static DoubleType DOUBLE = DoubleType.INSTANCE;
-    private static StringType STRING = StringType.INSTANCE;
-    private static BigDecimalType BIG_DECIMAL = BigDecimalType.INSTANCE;
-    private static FloatType FLOAT = FloatType.INSTANCE;
-    private static IntegerType INTEGER = IntegerType.INSTANCE;
-    private static LongType LONG = LongType.INSTANCE;
-    private static CharacterType CHARACTER = CharacterType.INSTANCE;
-    private static BigIntegerType BIG_INTEGER = BigIntegerType.INSTANCE;
-    private static DateType DATE = DateType.INSTANCE;
-    private static TimeType TIME = TimeType.INSTANCE;
-    private static TimestampType TIMESTAMP = TimestampType.INSTANCE;
-    private static BlobType BLOB = BlobType.INSTANCE;
-    private static ClobType CLOB = ClobType.INSTANCE;
-    private static ObjectType OBJECT = ObjectType.INSTANCE;
 
     public TeiidDialect() {
-        // Register types
-        registerColumnType(Types.CHAR, "char"); //$NON-NLS-1$
-        registerColumnType(Types.VARCHAR, "string"); //$NON-NLS-1$
-
-        registerColumnType(Types.BIT, "boolean"); //$NON-NLS-1$
-        registerColumnType(Types.TINYINT, "byte"); //$NON-NLS-1$
-        registerColumnType(Types.SMALLINT, "short"); //$NON-NLS-1$
-        registerColumnType(Types.INTEGER, "integer"); //$NON-NLS-1$
-        registerColumnType(Types.BIGINT, "long"); //$NON-NLS-1$
-
-        registerColumnType(Types.REAL, "float"); //$NON-NLS-1$
-        registerColumnType(Types.FLOAT, "float"); //$NON-NLS-1$
-        registerColumnType(Types.DOUBLE, "double"); //$NON-NLS-1$
-        registerColumnType(Types.NUMERIC, "bigdecimal"); //$NON-NLS-1$
-
-        registerColumnType(Types.DATE, "date"); //$NON-NLS-1$
-        registerColumnType(Types.TIME, "time"); //$NON-NLS-1$
-        registerColumnType(Types.TIMESTAMP, "timestamp"); //$NON-NLS-1$
-
-        registerColumnType(Types.BLOB, "blob"); //$NON-NLS-1$
-        registerColumnType(Types.VARBINARY, "blob"); //$NON-NLS-1$
-        registerColumnType(Types.CLOB, "clob"); //$NON-NLS-1$
-        registerColumnType(Types.JAVA_OBJECT, "object"); //$NON-NLS-1$
-
-        registerFunction("acos", new StandardSQLFunction("acos", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("asin", new StandardSQLFunction("asin", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("atan", new StandardSQLFunction("atan", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("atan2", new StandardSQLFunction("atan2", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("ceil", new StandardSQLFunction("ceiling")); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("cos", new StandardSQLFunction("cos", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("cot", new StandardSQLFunction("cot", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("degrees", new StandardSQLFunction("degrees", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("exp", new StandardSQLFunction("exp", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("floor", new StandardSQLFunction("floor")); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatbigdecimal", new StandardSQLFunction("formatbigdecimal", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatbiginteger", new StandardSQLFunction("formatbiginteger", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatdouble", new StandardSQLFunction("formatdouble", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatfloat", new StandardSQLFunction("formatfloat", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatinteger", new StandardSQLFunction("formatinteger", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatlong", new StandardSQLFunction("formatlong", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("log", new StandardSQLFunction("log", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("mod", new StandardSQLFunction("mod")); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsebigdecimal", new StandardSQLFunction("parsebigdecimal", BIG_DECIMAL)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsebiginteger", new StandardSQLFunction("parsebiginteger", BIG_INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsedouble", new StandardSQLFunction("parsedouble", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsefloat", new StandardSQLFunction("parsefloat", FLOAT)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parseinteger", new StandardSQLFunction("parseinteger", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parselong", new StandardSQLFunction("parselong", LONG)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("pi", new StandardSQLFunction("pi", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("power", new StandardSQLFunction("power", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("radians", new StandardSQLFunction("radians", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("round", new StandardSQLFunction("round")); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("sign", new StandardSQLFunction("sign", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("sin", new StandardSQLFunction("sin", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("tan", new StandardSQLFunction("tan", DOUBLE)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("ascii", new StandardSQLFunction("ascii", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("chr", new StandardSQLFunction("chr", CHARACTER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("char", new StandardSQLFunction("char", CHARACTER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("concat", new VarArgsSQLFunction(STRING, "", "||", "")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-        registerFunction("initcap", new StandardSQLFunction("initcap", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("insert", new StandardSQLFunction("insert", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("lcase", new StandardSQLFunction("lcase", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("left", new StandardSQLFunction("left", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("locate", new StandardSQLFunction("locate", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("lpad", new StandardSQLFunction("lpad", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("ltrim", new StandardSQLFunction("ltrim", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("repeat", new StandardSQLFunction("repeat", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("replace", new StandardSQLFunction("replace", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("right", new StandardSQLFunction("right", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("rpad", new StandardSQLFunction("rpad", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("rtrim", new StandardSQLFunction("rtrim", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("substring", new StandardSQLFunction("substring", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("translate", new StandardSQLFunction("translate", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("ucase", new StandardSQLFunction("ucase", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("curdate", new NoArgSQLFunction("curdate", DATE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("curtime", new NoArgSQLFunction("curtime", TIME)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("now", new NoArgSQLFunction("now", TIMESTAMP)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("dayname", new StandardSQLFunction("dayname", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("dayofmonth", new StandardSQLFunction("dayofmonth", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("dayofweek", new StandardSQLFunction("dayofweek", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("dayofyear", new StandardSQLFunction("dayofyear", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formatdate", new StandardSQLFunction("formatdate", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formattime", new StandardSQLFunction("formattime", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("formattimestamp", new StandardSQLFunction("formattimestamp", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("hour", new StandardSQLFunction("hour", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("minute", new StandardSQLFunction("minute", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("monthname", new StandardSQLFunction("monthname", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsedate", new StandardSQLFunction("parsedate", DATE)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsetime", new StandardSQLFunction("parsetime", TIME)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("parsetimestamp", new StandardSQLFunction("parsetimestamp", TIMESTAMP)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("second", new StandardSQLFunction("second", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("timestampcreate", new StandardSQLFunction("timestampcreate", TIMESTAMP)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("timestampAdd", new StandardSQLFunction("timestampAdd")); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("timestampDiff", new StandardSQLFunction("timestampDiff", LONG)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("week", new StandardSQLFunction("week", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("year", new StandardSQLFunction("year", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("modifytimezone", new StandardSQLFunction("modifytimezone", TIMESTAMP)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("convert", new StandardSQLFunction("convert")); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("to_bytes", new StandardSQLFunction("to_bytes", BLOB)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("to_chars", new StandardSQLFunction("to_chars", CLOB)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("from_unittime", new StandardSQLFunction("from_unittime", TIMESTAMP)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("session_id", new StandardSQLFunction("session_id", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("uuid", new StandardSQLFunction("uuid", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("unescape", new StandardSQLFunction("unescape", STRING)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        registerFunction("array_get", new StandardSQLFunction("array_get", OBJECT)); //$NON-NLS-1$ //$NON-NLS-2$
-        registerFunction("array_length", new StandardSQLFunction("array_length", INTEGER)); //$NON-NLS-1$ //$NON-NLS-2$
+        super(DatabaseVersion.make(1));
     }
 
+    public TeiidDialect(DialectResolutionInfo info) {
+        super(info);
+    }
+
+    @Override
+    protected void registerColumnTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
+        super.registerColumnTypes(typeContributions, serviceRegistry);
+        DdlTypeRegistry ddl = typeContributions.getTypeConfiguration().getDdlTypeRegistry();
+
+        ddl.addDescriptor(new DdlTypeImpl(Types.CHAR, "char", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.VARCHAR, "string", this)); //$NON-NLS-1$
+
+        ddl.addDescriptor(new DdlTypeImpl(Types.BIT, "boolean", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.TINYINT, "byte", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.SMALLINT, "short", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.INTEGER, "integer", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.BIGINT, "long", this)); //$NON-NLS-1$
+
+        ddl.addDescriptor(new DdlTypeImpl(Types.REAL, "float", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.FLOAT, "float", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.DOUBLE, "double", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.NUMERIC, "bigdecimal", this)); //$NON-NLS-1$
+
+        ddl.addDescriptor(new DdlTypeImpl(Types.DATE, "date", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.TIME, "time", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.TIMESTAMP, "timestamp", this)); //$NON-NLS-1$
+
+        ddl.addDescriptor(new DdlTypeImpl(Types.BLOB, "blob", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.VARBINARY, "blob", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.CLOB, "clob", this)); //$NON-NLS-1$
+        ddl.addDescriptor(new DdlTypeImpl(Types.JAVA_OBJECT, "object", this)); //$NON-NLS-1$
+    }
+
+    @Override
+    public void initializeFunctionRegistry(FunctionContributions functionContributions) {
+        super.initializeFunctionRegistry(functionContributions);
+
+        SqmFunctionRegistry registry = functionContributions.getFunctionRegistry();
+        TypeConfiguration types = functionContributions.getTypeConfiguration();
+
+        final BasicType<?> doubleType = resolve(types, StandardBasicTypes.DOUBLE);
+        final BasicType<?> stringType = resolve(types, StandardBasicTypes.STRING);
+        final BasicType<?> bigDecimalType = resolve(types, StandardBasicTypes.BIG_DECIMAL);
+        final BasicType<?> floatType = resolve(types, StandardBasicTypes.FLOAT);
+        final BasicType<?> integerType = resolve(types, StandardBasicTypes.INTEGER);
+        final BasicType<?> longType = resolve(types, StandardBasicTypes.LONG);
+        final BasicType<?> characterType = resolve(types, StandardBasicTypes.CHARACTER);
+        final BasicType<?> bigIntegerType = resolve(types, StandardBasicTypes.BIG_INTEGER);
+        final BasicType<?> dateType = resolve(types, StandardBasicTypes.DATE);
+        final BasicType<?> timeType = resolve(types, StandardBasicTypes.TIME);
+        final BasicType<?> timestampType = resolve(types, StandardBasicTypes.TIMESTAMP);
+        final BasicType<?> blobType = resolve(types, StandardBasicTypes.BLOB);
+        final BasicType<?> clobType = resolve(types, StandardBasicTypes.CLOB);
+
+        named(registry, "acos", doubleType); //$NON-NLS-1$
+        named(registry, "asin", doubleType); //$NON-NLS-1$
+        named(registry, "atan", doubleType); //$NON-NLS-1$
+        named(registry, "atan2", doubleType); //$NON-NLS-1$
+        registry.namedDescriptorBuilder("ceil", "ceiling").register(); //$NON-NLS-1$ //$NON-NLS-2$
+        named(registry, "cos", doubleType); //$NON-NLS-1$
+        named(registry, "cot", doubleType); //$NON-NLS-1$
+        named(registry, "degrees", doubleType); //$NON-NLS-1$
+        named(registry, "exp", doubleType); //$NON-NLS-1$
+        registry.namedDescriptorBuilder("floor").register(); //$NON-NLS-1$
+        named(registry, "formatbigdecimal", stringType); //$NON-NLS-1$
+        named(registry, "formatbiginteger", stringType); //$NON-NLS-1$
+        named(registry, "formatdouble", stringType); //$NON-NLS-1$
+        named(registry, "formatfloat", stringType); //$NON-NLS-1$
+        named(registry, "formatinteger", stringType); //$NON-NLS-1$
+        named(registry, "formatlong", stringType); //$NON-NLS-1$
+        named(registry, "log", doubleType); //$NON-NLS-1$
+        registry.namedDescriptorBuilder("mod").register(); //$NON-NLS-1$
+        named(registry, "parsebigdecimal", bigDecimalType); //$NON-NLS-1$
+        named(registry, "parsebiginteger", bigIntegerType); //$NON-NLS-1$
+        named(registry, "parsedouble", doubleType); //$NON-NLS-1$
+        named(registry, "parsefloat", floatType); //$NON-NLS-1$
+        named(registry, "parseinteger", integerType); //$NON-NLS-1$
+        named(registry, "parselong", longType); //$NON-NLS-1$
+        named(registry, "pi", doubleType); //$NON-NLS-1$
+        named(registry, "power", doubleType); //$NON-NLS-1$
+        named(registry, "radians", doubleType); //$NON-NLS-1$
+        registry.namedDescriptorBuilder("round").register(); //$NON-NLS-1$
+        named(registry, "sign", integerType); //$NON-NLS-1$
+        named(registry, "sin", doubleType); //$NON-NLS-1$
+        named(registry, "tan", doubleType); //$NON-NLS-1$
+
+        named(registry, "ascii", integerType); //$NON-NLS-1$
+        named(registry, "chr", characterType); //$NON-NLS-1$
+        named(registry, "char", characterType); //$NON-NLS-1$
+        registry.patternDescriptorBuilder("concat", "(?1||?2)").setInvariantType(stringType).register(); //$NON-NLS-1$ //$NON-NLS-2$
+        named(registry, "initcap", stringType); //$NON-NLS-1$
+        named(registry, "insert", stringType); //$NON-NLS-1$
+        named(registry, "lcase", stringType); //$NON-NLS-1$
+        named(registry, "left", stringType); //$NON-NLS-1$
+        named(registry, "locate", integerType); //$NON-NLS-1$
+        named(registry, "lpad", stringType); //$NON-NLS-1$
+        named(registry, "ltrim", stringType); //$NON-NLS-1$
+        named(registry, "repeat", stringType); //$NON-NLS-1$
+        named(registry, "replace", stringType); //$NON-NLS-1$
+        named(registry, "right", stringType); //$NON-NLS-1$
+        named(registry, "rpad", stringType); //$NON-NLS-1$
+        named(registry, "rtrim", stringType); //$NON-NLS-1$
+        named(registry, "substring", stringType); //$NON-NLS-1$
+        named(registry, "translate", stringType); //$NON-NLS-1$
+        named(registry, "ucase", stringType); //$NON-NLS-1$
+
+        noArgs(registry, "curdate", dateType); //$NON-NLS-1$
+        noArgs(registry, "curtime", timeType); //$NON-NLS-1$
+        noArgs(registry, "now", timestampType); //$NON-NLS-1$
+        named(registry, "dayname", stringType); //$NON-NLS-1$
+        named(registry, "dayofmonth", integerType); //$NON-NLS-1$
+        named(registry, "dayofweek", integerType); //$NON-NLS-1$
+        named(registry, "dayofyear", integerType); //$NON-NLS-1$
+        named(registry, "formatdate", stringType); //$NON-NLS-1$
+        named(registry, "formattime", stringType); //$NON-NLS-1$
+        named(registry, "formattimestamp", stringType); //$NON-NLS-1$
+        named(registry, "hour", integerType); //$NON-NLS-1$
+        named(registry, "minute", integerType); //$NON-NLS-1$
+        named(registry, "monthname", stringType); //$NON-NLS-1$
+        named(registry, "parsedate", dateType); //$NON-NLS-1$
+        named(registry, "parsetime", timeType); //$NON-NLS-1$
+        named(registry, "parsetimestamp", timestampType); //$NON-NLS-1$
+        named(registry, "second", integerType); //$NON-NLS-1$
+        named(registry, "timestampcreate", timestampType); //$NON-NLS-1$
+        registry.namedDescriptorBuilder("timestampAdd").register(); //$NON-NLS-1$
+        named(registry, "timestampDiff", longType); //$NON-NLS-1$
+        named(registry, "week", integerType); //$NON-NLS-1$
+        named(registry, "year", integerType); //$NON-NLS-1$
+        named(registry, "modifytimezone", timestampType); //$NON-NLS-1$
+
+        registry.namedDescriptorBuilder("convert").register(); //$NON-NLS-1$
+
+        named(registry, "to_bytes", blobType); //$NON-NLS-1$
+        named(registry, "to_chars", clobType); //$NON-NLS-1$
+        named(registry, "from_unittime", timestampType); //$NON-NLS-1$
+        named(registry, "session_id", stringType); //$NON-NLS-1$
+
+        named(registry, "uuid", stringType); //$NON-NLS-1$
+        named(registry, "unescape", stringType); //$NON-NLS-1$
+
+        registry.namedDescriptorBuilder("array_get").register(); //$NON-NLS-1$
+        named(registry, "array_length", integerType); //$NON-NLS-1$
+    }
+
+    private static BasicType<?> resolve(TypeConfiguration types, BasicTypeReference<?> ref) {
+        return types.getBasicTypeRegistry().resolve(ref);
+    }
+
+    private static void named(SqmFunctionRegistry registry, String name, BasicType<?> type) {
+        registry.namedDescriptorBuilder(name).setInvariantType(type).register();
+    }
+
+    private static void noArgs(SqmFunctionRegistry registry, String name, BasicType<?> type) {
+        registry.noArgsBuilder(name).setInvariantType(type).register();
+    }
+
+    @Override
     public boolean dropConstraints() {
         return false;
     }
 
+    @Override
     public boolean hasAlterTable() {
         return false;
     }
 
+    @Override
     public boolean supportsColumnCheck() {
         return false;
     }
 
+    @Override
     public boolean supportsCascadeDelete() {
         return false;
     }
 
-    public String getCurrentTimestampSQLFunctionName() {
-        return "now"; //$NON-NLS-1$
-    }
-
+    @Override
     public boolean isCurrentTimestampSelectStringCallable() {
         return false;
     }
 
+    @Override
     public boolean supportsCurrentTimestampSelection() {
         return true;
     }
 
-    public boolean supportsLimit() {
-        return true;
-    }
-
+    @Override
     public boolean supportsOuterJoinForUpdate() {
         return false;
     }
 
+    @Override
     public boolean supportsTableCheck() {
         return false;
     }
 
+    @Override
     public boolean supportsUnionAll() {
         return true;
     }
 
-    public boolean supportsUnique() {
-        return false;
+    @Override
+    public void appendBooleanValueString(SqlAppender appender, boolean bool) {
+        appender.appendSql(bool ? "{b'true'}" : "{b'false'}"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    public String toBooleanValueString(boolean arg0) {
-        if (arg0) {
-            return "{b'true'}"; //$NON-NLS-1$
+    @Override
+    public LimitHandler getLimitHandler() {
+        return LIMIT_HANDLER;
+    }
+
+    private static final LimitHandler LIMIT_HANDLER = new AbstractLimitHandler() {
+        @Override
+        public boolean supportsLimit() {
+            return true;
         }
-        return "{b'false'}"; //$NON-NLS-1$
-    }
 
-    /**
-     * @see org.hibernate.dialect.Dialect#getLimitString(java.lang.String, boolean)
-     */
-    public String getLimitString(String querySelect,
-                                 boolean hasOffset) {
-        return new StringBuffer(querySelect.length() + 20).append(querySelect).append(hasOffset ? " limit ?, ?" : " limit ?") //$NON-NLS-1$ //$NON-NLS-2$
-                                                          .toString();
-    }
+        @Override
+        public boolean supportsLimitOffset() {
+            return true;
+        }
 
-    /**
-     * @see org.hibernate.dialect.Dialect#getResultSet(java.sql.CallableStatement)
-     */
+        @Override
+        public String processSql(String sql, Limit limit) {
+            boolean hasOffset = limit != null && limit.getFirstRow() != null && limit.getFirstRow() > 0;
+            return sql + (hasOffset ? " limit ?, ?" : " limit ?"); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+    };
+
+    @Override
     public ResultSet getResultSet(CallableStatement ps) throws SQLException {
         boolean isResultSet = ps.execute();
         while (!isResultSet && ps.getUpdateCount() != -1) {
             isResultSet = ps.getMoreResults();
         }
-        ResultSet rs = ps.getResultSet();
-        return rs;
+        return ps.getResultSet();
     }
 
-    /**
-     * @see org.hibernate.dialect.Dialect#registerResultSetOutParameter(java.sql.CallableStatement, int)
-     */
-    public int registerResultSetOutParameter(CallableStatement statement,
-                                             int col) throws SQLException {
+    @Override
+    public int registerResultSetOutParameter(CallableStatement statement, int col) throws SQLException {
         return col;
     }
 
+    @Override
     public String getForUpdateNowaitString() {
         return ""; //$NON-NLS-1$
     }
 
+    @Override
     public String getForUpdateNowaitString(String aliases) {
-        return "";         //$NON-NLS-1$
+        return ""; //$NON-NLS-1$
     }
 
+    @Override
     public String getForUpdateString() {
         return ""; //$NON-NLS-1$
     }
 
+    @Override
     public String getForUpdateString(LockMode lockMode) {
         return ""; //$NON-NLS-1$
     }
 
+    @Override
     public String getForUpdateString(String aliases) {
         return ""; //$NON-NLS-1$
     }
@@ -277,40 +336,53 @@ public class TeiidDialect extends Dialect {
     }
 
     @Override
-    public boolean supportsSequences() {
-        return true;
+    public SequenceSupport getSequenceSupport() {
+        return SEQUENCE_SUPPORT;
+    }
+
+    private static final SequenceSupport SEQUENCE_SUPPORT = new SequenceSupport() {
+        @Override
+        public String getSelectSequenceNextValString(String sequenceName) {
+            return sequenceName + "_nextval()"; //$NON-NLS-1$
+        }
+
+        @Override
+        public String getSequenceNextValString(String sequenceName) {
+            return "select " + getSelectSequenceNextValString(sequenceName); //$NON-NLS-1$
+        }
+    };
+
+    @Override
+    public SqmMultiTableMutationStrategy getFallbackSqmMutationStrategy(EntityMappingType rootEntityDescriptor,
+            RuntimeModelCreationContext runtimeModelCreationContext) {
+        return new LocalTemporaryTableMutationStrategy(
+                TemporaryTable.createIdTable(rootEntityDescriptor,
+                        basename -> TemporaryTable.ID_TABLE_PREFIX + basename, this, runtimeModelCreationContext),
+                runtimeModelCreationContext.getSessionFactory());
     }
 
     @Override
-    public boolean supportsPooledSequences() {
-        return true;
+    public SqmMultiTableInsertStrategy getFallbackSqmInsertStrategy(EntityMappingType rootEntityDescriptor,
+            RuntimeModelCreationContext runtimeModelCreationContext) {
+        return new LocalTemporaryTableInsertStrategy(
+                TemporaryTable.createEntityTable(rootEntityDescriptor,
+                        basename -> TemporaryTable.ENTITY_TABLE_PREFIX + basename, this, runtimeModelCreationContext),
+                runtimeModelCreationContext.getSessionFactory());
     }
 
     @Override
-    public String getSequenceNextValString(String sequenceName) {
-        return "select " + getSelectSequenceNextValString( sequenceName );
+    public String getTemporaryTableCreateCommand() {
+        return "create local temporary table"; //$NON-NLS-1$
     }
 
     @Override
-    public String getSelectSequenceNextValString(String sequenceName) {
-        return sequenceName + "_nextval()";
+    public String getTemporaryTableDropCommand() {
+        return "drop table"; //$NON-NLS-1$
     }
 
-    public MultiTableBulkIdStrategy getDefaultMultiTableBulkIdStrategy() {
-        return new LocalTemporaryTableBulkIdStrategy(
-            new IdTableSupportStandardImpl() {
-                @Override
-                public String getCreateIdTableCommand() {
-                    return "create local temporary table";
-                }
-                @Override
-                public String getDropIdTableCommand() {
-                    return "drop table";
-                }
-            },
-            AfterUseAction.DROP,
-            TempTableDdlTransactionHandling.NONE
-        );
+    @Override
+    public AfterUseAction getTemporaryTableAfterUseAction() {
+        return AfterUseAction.DROP;
     }
 
     @Override
@@ -318,4 +390,3 @@ public class TeiidDialect extends Dialect {
         return NameQualifierSupport.SCHEMA;
     }
 }
-
