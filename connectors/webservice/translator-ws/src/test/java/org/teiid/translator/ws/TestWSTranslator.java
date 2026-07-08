@@ -30,11 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 import javax.xml.transform.stax.StAXSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.handler.MessageContext;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -85,8 +85,8 @@ public class TestWSTranslator {
         RuntimeMetadataImpl rm = new RuntimeMetadataImpl(tm);
         Dispatch<Object> mockDispatch = mockDispatch();
         DataSource source = Mockito.mock(DataSource.class);
-        Mockito.when(mockDispatch.invoke(Mockito.any(DataSource.class))).thenReturn(source);
-        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
+        Mockito.when(mockDispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(source);
+        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.nullable(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
         CommandBuilder cb = new CommandBuilder(tm);
 
         Call call = (Call)cb.getCommand("call invokeHttp('GET', null, null)");
@@ -98,7 +98,7 @@ public class TestWSTranslator {
         mockDispatch = Mockito.mock(Dispatch.class);
         StAXSource ssource = Mockito.mock(StAXSource.class);
         Mockito.when(mockDispatch.invoke(Mockito.any(StAXSource.class))).thenReturn(ssource);
-        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
+        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.nullable(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
         call = (Call)cb.getCommand("call invoke()");
         WSProcedureExecution wpe = new WSProcedureExecution(call, rm, Mockito.mock(ExecutionContext.class), ef, mockConnection);
         wpe.execute();
@@ -119,8 +119,8 @@ public class TestWSTranslator {
         DataSource mock = Mockito.mock(DataSource.class);
         ByteArrayInputStream baos = new ByteArrayInputStream(new byte[100]);
         Mockito.when(mock.getInputStream()).thenReturn(baos);
-        Mockito.when(mockDispatch.invoke(Mockito.any(DataSource.class))).thenReturn(mock);
-        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
+        Mockito.when(mockDispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(mock);
+        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.nullable(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
         CommandBuilder cb = new CommandBuilder(tm);
 
         Call call = (Call)cb.getCommand("call invokeHttp('GET', null, null, true)");
@@ -151,8 +151,8 @@ public class TestWSTranslator {
         DataSource mock = Mockito.mock(DataSource.class);
         ByteArrayInputStream baos = new ByteArrayInputStream(new byte[100]);
         Mockito.when(mock.getInputStream()).thenReturn(baos);
-        Mockito.when(mockDispatch.invoke(Mockito.any(DataSource.class))).thenReturn(mock);
-        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
+        Mockito.when(mockDispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(mock);
+        Mockito.when(mockConnection.createDispatch(Mockito.any(String.class), Mockito.nullable(String.class), Mockito.any(Class.class), Mockito.any(Service.Mode.class))).thenReturn(mockDispatch);
         CommandBuilder cb = new CommandBuilder(tm);
 
         Call call = (Call)cb.getCommand("call invokeHttp('GET', null, null, false, '{\"ContentType\":\"application/json\"}')");

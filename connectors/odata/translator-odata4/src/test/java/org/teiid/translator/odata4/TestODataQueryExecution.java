@@ -31,11 +31,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.activation.DataSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.http.HTTPBinding;
 
 import org.apache.olingo.commons.api.edm.geo.Point;
 import org.apache.olingo.commons.api.edm.provider.CsdlComplexType;
@@ -111,7 +111,7 @@ public class TestODataQueryExecution {
                 return "application/xml";
             }
         };
-        Mockito.when(dispatch.invoke(Mockito.any(DataSource.class))).thenReturn(ds);
+        Mockito.when(dispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(ds);
 
         ResultSetExecution execution = translator
                 .createResultSetExecution((QueryExpression) cmd, context,
@@ -178,7 +178,7 @@ public class TestODataQueryExecution {
                 return "application/xml";
             }
         };
-        Mockito.when(dispatch.invoke(Mockito.any(DataSource.class))).thenReturn(ds);
+        Mockito.when(dispatch.invoke(Mockito.nullable(DataSource.class))).thenReturn(ds);
 
         ProcedureExecution execution = translator
                 .createProcedureExecution((Call) cmd, context,
