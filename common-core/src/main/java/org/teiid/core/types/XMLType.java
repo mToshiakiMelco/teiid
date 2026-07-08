@@ -80,7 +80,21 @@ public final class XMLType extends Streamable<SQLXML> implements SQLXML {
                 }
             });
         }
+        // Restore the pre-JDK-25 behavior of not limiting the element nesting depth. Newer JDKs
+        // default jdk.xml.maxElementDepth to 100, which would reject deeply-nested XML that Teiid
+        // previously accepted. DTDs/external entities are already disabled above for XXE safety.
+        setPropertyIfSupported(factory, "jdk.xml.maxElementDepth", 0); //$NON-NLS-1$
         return factory;
+    }
+
+    private static void setPropertyIfSupported(XMLInputFactory factory, String name, Object value) {
+        try {
+            if (factory.isPropertySupported(name)) {
+                factory.setProperty(name, value);
+            }
+        } catch (IllegalArgumentException e) {
+            // property not recognized by this implementation; leave at the default
+        }
     }
 
     private static XMLInputFactory factory = createXMLInputFactory();
