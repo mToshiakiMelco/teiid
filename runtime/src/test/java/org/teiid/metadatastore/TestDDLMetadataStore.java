@@ -25,9 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.security.Identity;
 import java.security.Principal;
-import java.security.acl.Group;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -71,6 +69,7 @@ import org.teiid.runtime.TestEmbeddedServer;
 import org.teiid.runtime.util.ConvertVDB;
 import org.teiid.security.Credentials;
 import org.teiid.security.GSSResult;
+import org.teiid.security.GroupPrincipal;
 import org.teiid.security.SecurityHelper;
 import org.teiid.translator.ExecutionFactory;
 import org.teiid.translator.file.FileExecutionFactory;
@@ -157,37 +156,31 @@ public class TestDDLMetadataStore {
         }
     }
 
-    private static class SimplePrincipal extends Identity {
+    private static class SimplePrincipal implements Principal {
+        private final String name;
         private SimplePrincipal(String name) {
-            super(name);
+            this.name = name;
+        }
+        @Override
+        public String getName() {
+            return name;
         }
     }
 
-    private static class SimpleGroup extends SimplePrincipal implements Group {
+    private static class SimpleGroup extends SimplePrincipal implements GroupPrincipal {
         private HashSet<Principal> members = new HashSet<>();
 
         private SimpleGroup(String name) {
             super(name);
         }
 
-        @Override
         public boolean addMember(Principal user) {
             return members.add(user);
         }
 
         @Override
-        public boolean isMember(Principal member) {
-            return members.contains(member);
-        }
-
-        @Override
         public Enumeration<? extends Principal> members() {
             return Collections.enumeration(members);
-        }
-
-        @Override
-        public boolean removeMember(Principal user) {
-            return members.remove(user);
         }
     }
 

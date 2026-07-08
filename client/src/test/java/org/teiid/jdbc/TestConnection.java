@@ -66,19 +66,19 @@ public class TestConnection {
         ServerConnection mock = mock(ServerConnection.class);
         DQP dqp = mock(DQP.class);
         try {
-            stub(dqp.start((XidImpl)Mockito.anyObject(), Mockito.anyInt(), Mockito.anyInt())).toAnswer(new Answer() {
+            when(dqp.start((XidImpl)Mockito.any(), Mockito.anyInt(), Mockito.anyInt())).thenAnswer(new Answer() {
                 @Override
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     return ResultsFuture.NULL_FUTURE;
                 }
             });
-            stub(dqp.rollback((XidImpl)Mockito.anyObject())).toAnswer(new Answer() {
+            when(dqp.rollback((XidImpl)Mockito.any())).thenAnswer(new Answer() {
                 @Override
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     return ResultsFuture.NULL_FUTURE;
                 }
             });
-            stub(dqp.rollback()).toAnswer(new Answer() {
+            when(dqp.rollback()).thenAnswer(new Answer() {
                 @Override
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     return ResultsFuture.NULL_FUTURE;
@@ -97,9 +97,9 @@ public class TestConnection {
             e.printStackTrace();
         }
 
-        stub(mock.getService(DQP.class)).toReturn(dqp);
+        when(mock.getService(DQP.class)).thenReturn(dqp);
 
-        stub(mock.getLogonResult()).toReturn(new LogonResult(new SessionToken(1, "admin"), STD_DATABASE_NAME, "fake")); //$NON-NLS-1$
+        when(mock.getLogonResult()).thenReturn(new LogonResult(new SessionToken(1, "admin"), STD_DATABASE_NAME, "fake")); //$NON-NLS-1$
         return new ConnectionImpl(mock, props, url);
     }
 

@@ -74,7 +74,7 @@ public class TestXAConnection {
         } catch (SQLException e) {
 
         }
-        Mockito.verify(cel).connectionErrorOccurred((ConnectionEvent) Mockito.anyObject());
+        Mockito.verify(cel).connectionErrorOccurred((ConnectionEvent) Mockito.any());
     }
 
     @Test(expected=XAException.class) public void testStartFailure() throws Exception {

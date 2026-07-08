@@ -20,7 +20,6 @@ package org.teiid.services;
 
 
 import java.security.Principal;
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -60,6 +59,7 @@ import org.teiid.net.socket.AuthenticationType;
 import org.teiid.runtime.RuntimePlugin;
 import org.teiid.security.Credentials;
 import org.teiid.security.GSSResult;
+import org.teiid.security.GroupPrincipal;
 import org.teiid.security.SecurityHelper;
 import org.teiid.vdb.runtime.VDBKey;
 
@@ -557,7 +557,7 @@ public class SessionServiceImpl implements SessionService {
     private String getUserName(Subject subject, String userName) {
         Set<Principal> principals = subject.getPrincipals();
         for (Principal p:principals) {
-            if (p instanceof Group) {
+            if (p instanceof GroupPrincipal) {
                 continue;
             }
             String name = p.getName();
