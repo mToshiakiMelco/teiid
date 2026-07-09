@@ -27,7 +27,6 @@ import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloClient;
 import org.apache.accumulo.core.client.BatchWriter;
 import org.apache.accumulo.core.client.BatchWriterConfig;
-import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.security.tokens.PasswordToken;
 import org.apache.accumulo.core.data.Mutation;
 import org.apache.accumulo.core.data.Value;
@@ -52,7 +51,6 @@ import org.teiid.query.metadata.SystemMetadata;
 public class TestAccumuloMetadataProcessor {
 
     private static AccumuloClient client;
-    private static Connector connector;
     private static MiniAccumuloCluster cluster;
 
     @BeforeClass
@@ -66,7 +64,6 @@ public class TestAccumuloMetadataProcessor {
         client = cluster.createAccumuloClient("root", new PasswordToken("password"));
         client.securityOperations().changeUserAuthorizations("root", new Authorizations("public"));
 
-        connector = Connector.from(client);
         client.tableOperations().create("Customer");
         client.tableOperations().create("Category");
 
@@ -94,7 +91,7 @@ public class TestAccumuloMetadataProcessor {
     @Test
     public void testDefaultImportPropertiesMetadata() throws Exception {
         AccumuloConnection conn = Mockito.mock(AccumuloConnection.class);
-        Mockito.when(conn.getInstance()).thenReturn(connector);
+        Mockito.when(conn.getInstance()).thenReturn(client);
         Mockito.when(conn.getAuthorizations()).thenReturn(new Authorizations("public"));
         MetadataFactory mf = new MetadataFactory("vdb", 1, "accumulo", SystemMetadata.getInstance().getRuntimeTypeMap(), new Properties(), null);
         AccumuloMetadataProcessor processor = new AccumuloMetadataProcessor();
@@ -128,7 +125,7 @@ public class TestAccumuloMetadataProcessor {
         props.put("importer.ValueIn", "{ROWID}");
 
         AccumuloConnection conn = Mockito.mock(AccumuloConnection.class);
-        Mockito.when(conn.getInstance()).thenReturn(connector);
+        Mockito.when(conn.getInstance()).thenReturn(client);
         Mockito.when(conn.getAuthorizations()).thenReturn(new Authorizations("public"));
         MetadataFactory mf = new MetadataFactory("vdb", 1, "accumulo", SystemMetadata.getInstance().getRuntimeTypeMap(), props, null);
         AccumuloMetadataProcessor processor = new AccumuloMetadataProcessor();

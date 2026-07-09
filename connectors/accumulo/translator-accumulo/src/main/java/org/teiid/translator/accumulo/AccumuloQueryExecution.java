@@ -27,7 +27,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.apache.accumulo.core.client.BatchScanner;
-import org.apache.accumulo.core.client.Connector;
+import org.apache.accumulo.core.client.AccumuloClient;
 import org.apache.accumulo.core.client.IteratorSetting;
 import org.apache.accumulo.core.client.Scanner;
 import org.apache.accumulo.core.client.TableNotFoundException;
@@ -73,7 +73,7 @@ public class AccumuloQueryExecution implements ResultSetExecution {
     @Override
     public void execute() throws TranslatorException {
         try {
-            Connector connector = this.connection.getInstance();
+            AccumuloClient connector = this.connection.getInstance();
             List<Range> ranges = this.visitor.getRanges();
             Table scanTable = this.visitor.getScanTable();
             List<IteratorSetting> scanIterators = visitor.scanIterators();
@@ -87,7 +87,7 @@ public class AccumuloQueryExecution implements ResultSetExecution {
     }
 
     static Iterator<Entry<Key, Value>> runQuery(AccumuloExecutionFactory aef,
-            Connector connector, Authorizations auths, List<Range> ranges,
+            AccumuloClient connector, Authorizations auths, List<Range> ranges,
             Table scanTable, List<IteratorSetting> scanIterators)
             throws TableNotFoundException {
 

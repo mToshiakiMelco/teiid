@@ -25,7 +25,7 @@ import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.BatchWriter;
 import org.apache.accumulo.core.client.BatchWriterConfig;
-import org.apache.accumulo.core.client.Connector;
+import org.apache.accumulo.core.client.AccumuloClient;
 import org.apache.accumulo.core.client.MutationsRejectedException;
 import org.apache.accumulo.core.client.TableExistsException;
 import org.apache.accumulo.core.client.TableNotFoundException;
@@ -95,7 +95,7 @@ public class AccumuloUpdateExecution implements UpdateExecution {
         Table table = insert.getTable().getMetadataObject();
         this.updateCount = 0;
 
-        Connector connector = this.connection.getInstance();
+        AccumuloClient connector = this.connection.getInstance();
         BatchWriter writer = createBatchWriter(table, connector);
 
         List<ColumnReference> columns = insert.getColumns();
@@ -158,7 +158,7 @@ public class AccumuloUpdateExecution implements UpdateExecution {
             throw visitor.exceptions.get(0);
         }
 
-        Connector connector = this.connection.getInstance();
+        AccumuloClient connector = this.connection.getInstance();
         BatchWriter writer = createBatchWriter(table, connector);
 
         Text prevRow = null;
@@ -199,7 +199,7 @@ public class AccumuloUpdateExecution implements UpdateExecution {
         writer.close();
     }
 
-    private BatchWriter createBatchWriter(Table table, Connector connector) throws TranslatorException, TableNotFoundException {
+    private BatchWriter createBatchWriter(Table table, AccumuloClient connector) throws TranslatorException, TableNotFoundException {
         String tableName = SQLStringVisitor.getRecordName(table);
         BatchWriter writer;
         try {
@@ -234,7 +234,7 @@ public class AccumuloUpdateExecution implements UpdateExecution {
 
         /*
         // To get the update count I am taking longer route..
-        Connector connector = this.connection.getInstance();
+        AccumuloClient connector = this.connection.getInstance();
         BatchDeleter deleter = connector.createBatchDeleter(SQLStringVisitor.getRecordName(table), auths, this.aef.getQueryThreadsCount(), new BatchWriterConfig());
         deleter.setRanges(visitor.getRanges());
         deleter.delete();
@@ -242,7 +242,7 @@ public class AccumuloUpdateExecution implements UpdateExecution {
         */
 
         Text prevRow = null;
-        Connector connector = this.connection.getInstance();
+        AccumuloClient connector = this.connection.getInstance();
         BatchWriter writer = createBatchWriter(table, connector);
         Iterator<Entry<Key,Value>> results = AccumuloQueryExecution.runQuery(this.aef, this.connection.getInstance(), this.connection.getAuthorizations(), visitor.getRanges(), table, null);
         while (results.hasNext()) {

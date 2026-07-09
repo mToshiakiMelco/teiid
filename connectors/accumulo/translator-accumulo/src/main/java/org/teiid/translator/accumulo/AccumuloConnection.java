@@ -17,11 +17,11 @@
  */
 package org.teiid.translator.accumulo;
 
-import org.apache.accumulo.core.client.Connector;
+import org.apache.accumulo.core.client.AccumuloClient;
 import org.apache.accumulo.core.security.Authorizations;
 import org.teiid.resource.api.Connection;
 
 public interface AccumuloConnection extends Connection {
-    Connector getInstance();
+    AccumuloClient getInstance();
     Authorizations getAuthorizations();
 }
