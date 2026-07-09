@@ -1,7 +1,7 @@
 # Dependency Modernization
 
 This document tracks the migration of Teiid off the legacy Java EE (`javax.*`)
-platform and onto Java 17 LTS + Jakarta EE 9+/10 (`jakarta.*`). The work is
+platform and onto Java 25 LTS + Jakarta EE 9+/10 (`jakarta.*`). The work is
 delivered as a series of small, independent pull requests, each scoped to a
 single dependency axis so it can be reviewed and verified on its own. Every axis
 is premised on an integration-test environment: the modernized modules are
@@ -17,6 +17,24 @@ integration environment.
 | 2 | Persistence | `javax.persistence`, Hibernate 5.4, EclipseLink 2.5 | **`jakarta.persistence` 3.1**, Hibernate 6.6, EclipseLink 4.0 | Done |
 | 3 | Web service | `javax.ws.rs`/`javax.xml.ws`/`javax.activation`, CXF 3.3 | **`jakarta.ws.rs` 3.1 / `xml.ws` 4.0 / `activation` 2.1**, CXF 4.0 | Done |
 | 4 | Servlet / OData | `javax.servlet` (Servlet 4), Olingo 4.7, Jetty 9.4 | **`jakarta.servlet` 6.0**, Olingo 5.0, Jetty 12 (ee10) | Done |
+| 5 | Java target consolidation | Java 17 build, split `targetJdk` (client/common-core on 8), CI on 17/21 | **Java 25 LTS across the whole reactor**, CI on JDK 25 | Done |
+
+## Axis 5 — Java target consolidation (this change)
+
+Reconciles the build onto a single Java target. Earlier axes left the compiler
+target inconsistent: the root POM had moved to JDK 25, but `client` and
+`common-core` still overrode `project.build.targetJdk` to **8** (a legacy
+JDBC-driver-portability carry-over), CI built on JDK 17/21, and the docs still
+referenced Java 1.9 / 17.
+
+- **`client/pom.xml`, `common-core/pom.xml`:** `project.build.targetJdk` **8 → 25**,
+  so the whole reactor compiles to a single Java 25 bytecode target (the compiler
+  `source`/`target`/`release` is basepom-driven from these properties).
+- **`.github/workflows/ci.yml`:** because the reactor now compiles `--release 25`,
+  the build requires a JDK 25 toolchain — the CI matrix moves from `17, 21` to
+  **`25`** (Temurin).
+- **`README.md`:** the "install JDK 1.9 or higher" build prerequisite is corrected
+  to **JDK 25**.
 
 ## Approach
 
