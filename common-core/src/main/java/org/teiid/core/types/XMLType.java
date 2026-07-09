@@ -80,6 +80,14 @@ public final class XMLType extends Streamable<SQLXML> implements SQLXML {
                 }
             });
         }
+        //Teiid processes arbitrarily nested XML. JDK 24+ tightened the default
+        //jdk.xml.maxElementDepth to 100, which rejects valid deeply-nested documents
+        //that parsed fine on earlier JDKs. Restore the previous unlimited behavior.
+        try {
+            factory.setProperty("jdk.xml.maxElementDepth", "0"); //$NON-NLS-1$ //$NON-NLS-2$
+        } catch (IllegalArgumentException e) {
+            //property not supported by this StAX implementation (e.g. Woodstox); ignore
+        }
         return factory;
     }
 

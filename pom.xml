@@ -47,8 +47,8 @@
         <!-- since we auto-release, we want to push the changes -->
         <basepom.release.push-changes>true</basepom.release.push-changes>
         
-        <project.build.systemJdk>17</project.build.systemJdk>
-        <project.build.targetJdk>17</project.build.targetJdk>
+        <project.build.systemJdk>25</project.build.systemJdk>
+        <project.build.targetJdk>25</project.build.targetJdk>
 
         <derby.version>10.2.1.6</derby.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
@@ -78,7 +78,7 @@
         <version.de.flapdoodle.embed.process>2.1.2</version.de.flapdoodle.embed.process>
 
         <version.gdata-core>1.47.1</version.gdata-core>
-        <version.hadoop>3.3.6</version.hadoop>
+        <version.hadoop>3.5.0</version.hadoop>
         <version.org.apache.parquet>1.11.0</version.org.apache.parquet>
         
         <version.google-api-services-sheets>v4-rev612-1.25.0</version.google-api-services-sheets>
@@ -1315,6 +1315,15 @@
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
                 <version>${version.org.mongodb.mongo-java-driver}</version>
+            </dependency>
+            <dependency>
+                <!-- Override the jna 4.0.0 pulled transitively via the embedded-mongo
+                     test dependency: its jar has a malformed zip64 extra field that the
+                     stricter ZIP validation in JDK 25 rejects with "Invalid CEN header",
+                     which breaks compilation of any module that has it on the classpath. -->
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.14.0</version>
             </dependency>
             <dependency>
                 <groupId>org.noggit</groupId>

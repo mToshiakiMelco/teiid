@@ -51,6 +51,16 @@
 				<artifactId>caffeine</artifactId>
 				<version>3.1.8</version>
 			</dependency>
+			<!-- accumulo-minicluster pulls hadoop-client-minicluster, which the Teiid
+			     parent does not manage, so without this it would stay at Accumulo's
+			     transitive 3.3.6 while the rest of Hadoop moves to ${version.hadoop}.
+			     Hadoop < 3.5.0 calls the removed Subject.getSubject() and cannot start
+			     on JDK 25; keep every Hadoop artifact on the same JDK 25-capable version. -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-client-minicluster</artifactId>
+				<version>${version.hadoop}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
