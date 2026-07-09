@@ -47,13 +47,13 @@
         <!-- since we auto-release, we want to push the changes -->
         <basepom.release.push-changes>true</basepom.release.push-changes>
         
-        <project.build.systemJdk>17</project.build.systemJdk>
-        <project.build.targetJdk>17</project.build.targetJdk>
+        <project.build.systemJdk>25</project.build.systemJdk>
+        <project.build.targetJdk>25</project.build.targetJdk>
 
         <derby.version>10.2.1.6</derby.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
         
-        <version.accumulo>2.0.0</version.accumulo>
+        <version.accumulo>2.1.3</version.accumulo>
         <version.ant-contrib>1.0b3</version.ant-contrib>
         <version.aws-java-sdk>1.11.804</version.aws-java-sdk>
                 
@@ -78,7 +78,7 @@
         <version.de.flapdoodle.embed.process>2.1.2</version.de.flapdoodle.embed.process>
 
         <version.gdata-core>1.47.1</version.gdata-core>
-        <version.hadoop>3.1.3</version.hadoop>
+        <version.hadoop>3.5.0</version.hadoop>
         <version.org.apache.parquet>1.11.0</version.org.apache.parquet>
         
         <version.google-api-services-sheets>v4-rev612-1.25.0</version.google-api-services-sheets>
@@ -130,7 +130,7 @@
         <version.swagger-parser.v3>2.0.12</version.swagger-parser.v3>
         <version.xml-apis>1.4.01</version.xml-apis>
 
-        <version.zookeeper>3.4.14</version.zookeeper>
+        <version.zookeeper>3.9.2</version.zookeeper>
 
         
         <!-- Infinispan Translator -->
@@ -1317,6 +1317,15 @@
                 <version>${version.org.mongodb.mongo-java-driver}</version>
             </dependency>
             <dependency>
+                <!-- Override the jna 4.0.0 pulled transitively via the embedded-mongo
+                     test dependency: its jar has a malformed zip64 extra field that the
+                     stricter ZIP validation in JDK 25 rejects with "Invalid CEN header",
+                     which breaks compilation of any module that has it on the classpath. -->
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>5.14.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.noggit</groupId>
                 <artifactId>noggit</artifactId>
                 <version>${version.noggit}</version>
@@ -1349,11 +1358,13 @@
                         <groupId>org.eclipse.persistence</groupId>
                         <artifactId>eclipselink</artifactId>
                     </exclusion>
-                    <exclusion>
-			            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
-			            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-			        </exclusion>
-                    <!-- <exclusion> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
+                    <!-- jboss-jaxrs-api_2.0_spec is intentionally NOT excluded: the oreva
+                         odata-core classes (e.g. FormatParserFactory.getParser) expose
+                         javax.ws.rs.core.MediaType in their signatures, which javac must be
+                         able to load to compile calls into oreva even though Teiid's own code
+                         has migrated to jakarta.ws.rs. The javax and jakarta APIs live in
+                         different packages and coexist without conflict. -->
+                    <!-- <exclusion> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId>
                         </exclusion> -->
                 </exclusions>
             </dependency>
@@ -1866,7 +1877,7 @@
            <dependency>
                <groupId>org.apache.commons</groupId>
                <artifactId>commons-lang3</artifactId>
-               <version>3.9</version>
+               <version>3.14.0</version>
            </dependency>
            
            <dependency>
@@ -1902,7 +1913,7 @@
            <dependency>
                <groupId>org.apache.thrift</groupId>
                <artifactId>libthrift</artifactId>
-               <version>0.12.0</version>
+               <version>0.17.0</version>
            </dependency>
            
            <!-- RESTEasy 6.x (Jakarta EE 9+, jakarta.ws.rs 3.1). resteasy-jaxrs was
@@ -2021,11 +2032,6 @@
                         <artifactId>cxf-rt-core</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-oauth</artifactId>
-                <version>${version.org.apache.cxf}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>

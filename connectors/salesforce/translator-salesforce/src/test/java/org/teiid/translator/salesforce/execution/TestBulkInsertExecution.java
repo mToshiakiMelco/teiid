@@ -87,7 +87,7 @@ public class TestBulkInsertExecution {
 
         SalesforceConnection connection = Mockito.mock(SalesforceConnection.class);
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
-        Mockito.when(connection.createBulkJob(Mockito.anyString(), Mockito.eq(OperationEnum.insert), Mockito.eq(false))).thenReturn(jobInfo);
+        Mockito.when(connection.createBulkJob(Mockito.nullable(String.class), Mockito.eq(OperationEnum.insert), Mockito.eq(false))).thenReturn(jobInfo);
         Mockito.when(connection.getBulkResults(Mockito.any(JobInfo.class), Mockito.anyList())).thenReturn(new BatchResult[] {batchResult, batchResult, batchResult});
 
         SalesForceExecutionFactory config = new SalesForceExecutionFactory();
@@ -103,7 +103,7 @@ public class TestBulkInsertExecution {
                 continue;
             }
         }
-        Mockito.verify(connection, Mockito.times(1)).createBulkJob(Mockito.anyString(), Mockito.eq(OperationEnum.insert), Mockito.eq(false));
+        Mockito.verify(connection, Mockito.times(1)).createBulkJob(Mockito.nullable(String.class), Mockito.eq(OperationEnum.insert), Mockito.eq(false));
         Mockito.verify(connection, Mockito.times(1)).getBulkResults(Mockito.any(JobInfo.class), Mockito.anyList());
     }
 
@@ -151,7 +151,7 @@ public class TestBulkInsertExecution {
 
         SalesforceConnection connection = Mockito.mock(SalesforceConnection.class);
         JobInfo jobInfo = Mockito.mock(JobInfo.class);
-        Mockito.when(connection.createBulkJob(Mockito.anyString(), Mockito.eq(OperationEnum.insert), Mockito.eq(false))).thenReturn(jobInfo);
+        Mockito.when(connection.createBulkJob(Mockito.nullable(String.class), Mockito.eq(OperationEnum.insert), Mockito.eq(false))).thenReturn(jobInfo);
         Mockito.when(connection.getBulkResults(Mockito.any(JobInfo.class), Mockito.anyList())).thenReturn(new BatchResult[] {batchResult, batchResult, batchResult});
 
         SalesForceExecutionFactory config = new SalesForceExecutionFactory();
@@ -167,7 +167,7 @@ public class TestBulkInsertExecution {
                 continue;
             }
         }
-        Mockito.verify(connection, Mockito.times(1)).createBulkJob(Mockito.anyString(), Mockito.eq(OperationEnum.insert), Mockito.eq(false));
+        Mockito.verify(connection, Mockito.times(1)).createBulkJob(Mockito.nullable(String.class), Mockito.eq(OperationEnum.insert), Mockito.eq(false));
         Mockito.verify(connection, Mockito.times(1)).getBulkResults(Mockito.any(JobInfo.class), Mockito.anyList());
     }
 }

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.accumulo.core.client.AccumuloClient;
-import org.apache.accumulo.core.client.Connector;
+import org.apache.accumulo.core.client.admin.NewTableConfiguration;
 import org.apache.accumulo.core.client.admin.TimeType;
 import org.apache.accumulo.core.client.security.tokens.PasswordToken;
 import org.apache.accumulo.core.security.Authorizations;
@@ -61,7 +61,6 @@ public class TestAccumuloQueryExecution {
     private static AccumuloConnection connection;
 
     private static AccumuloClient client;
-    private static Connector connector;
     private static MiniAccumuloCluster cluster;
 
     @BeforeClass
@@ -82,12 +81,10 @@ public class TestAccumuloQueryExecution {
         client = cluster.createAccumuloClient("root", new PasswordToken("password"));
         client.securityOperations().changeUserAuthorizations("root", new Authorizations("public"));
 
-        connector = Connector.from(client);
-
-        Mockito.when(connection.getInstance()).thenReturn(connector);
+        Mockito.when(connection.getInstance()).thenReturn(client);
         Mockito.when(connection.getAuthorizations()).thenReturn(new Authorizations("public"));
-        connector.tableOperations().create("customer", true, TimeType.LOGICAL);
-        connector.tableOperations().create("rental", true, TimeType.LOGICAL);
+        client.tableOperations().create("customer", new NewTableConfiguration().setTimeType(TimeType.LOGICAL));
+        client.tableOperations().create("rental", new NewTableConfiguration().setTimeType(TimeType.LOGICAL));
     }
 
     @AfterClass

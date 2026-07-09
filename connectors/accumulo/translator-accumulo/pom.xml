@@ -20,6 +20,50 @@
        <basepom.check.skip-duplicate-finder>true</basepom.check.skip-duplicate-finder>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- Accumulo 2.1.x is built against a newer shared-library stack than the
+			     versions the Teiid parent pins project-wide (slf4j 1.7, guava 27,
+			     jackson 2.11.0.rc1, caffeine 2.8). Override them for this module only so
+			     the Accumulo server classes launched by MiniAccumuloCluster resolve the
+			     methods/classes they need, without changing the versions the rest of the
+			     build uses. These newer versions remain API-compatible with the Teiid
+			     code on this module's test classpath. -->
+			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>2.16.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>33.0.0-jre</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>2.0.12</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>caffeine</artifactId>
+				<version>3.1.8</version>
+			</dependency>
+			<!-- accumulo-minicluster pulls hadoop-client-minicluster, which the Teiid
+			     parent does not manage, so without this it would stay at Accumulo's
+			     transitive 3.3.6 while the rest of Hadoop moves to ${version.hadoop}.
+			     Hadoop < 3.5.0 calls the removed Subject.getSubject() and cannot start
+			     on JDK 25; keep every Hadoop artifact on the same JDK 25-capable version. -->
+			<dependency>
+				<groupId>org.apache.hadoop</groupId>
+				<artifactId>hadoop-client-minicluster</artifactId>
+				<version>${version.hadoop}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.teiid</groupId>
@@ -61,8 +105,29 @@
 		<dependency>
 		    <groupId>org.apache.accumulo</groupId>
             <artifactId>accumulo-minicluster</artifactId>
-            <version>2.0.0</version>
+            <version>${version.accumulo}</version>
             <scope>test</scope>
+            <exclusions>
+                <!-- hibernate-validator 6.0.11.Final (pulled transitively here) declares a
+                     test dependency on the non-existent org.openjfx:javafx.base:11.0.0-SNAPSHOT,
+                     which is not published to any repository and breaks dependency resolution.
+                     JavaFX is not used by these tests, so exclude it. -->
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx.base</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+		<dependency>
+		    <!-- ZooKeeper 3.9.x uses Dropwizard Metrics (com.codahale.metrics) at
+		         runtime, but its own POM declares metrics-core with provided scope so
+		         it is not pulled transitively. The ZooKeeper process spawned by
+		         MiniAccumuloCluster needs it on the test classpath, otherwise it dies
+		         with NoClassDefFoundError: com/codahale/metrics/Reservoir. -->
+		    <groupId>io.dropwizard.metrics</groupId>
+		    <artifactId>metrics-core</artifactId>
+		    <version>4.1.12.1</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 
